@@ -1,23 +1,5 @@
-var Hapi = require('hapi');
-var server = new Hapi.Server();
-
-const port = 8080;
-
-server.connection({
-	port: process.env.PORT || port
-});
-
-server.route([
-    {
-        method: "GET",
-        path: "/",
-        handler: function(request, reply){
-        	reply('hello');
-        }
-    }
-]);
-
-server.start(function(){
-    console.log(`Server running at port ${port}`);
-});
-
+// Babel require hook.
+// See https://babeljs.io/docs/usage/require/
+require('babel/register');
+// Our Node entry point.
+require('./app.js');
