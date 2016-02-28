@@ -8,8 +8,8 @@ const port = 8080;
 const host = 'localhost';
 
 server.connection({
-	port: process.env.PORT || port,
-    host: process.env.HOSTNAME || host
+	port: process.env.PORT || port
+//    host: process.env.HOSTNAME || host
 });
 
 server.route([
