@@ -3,7 +3,7 @@ import ReactDOM from 'react';
 
 export default class MainApp extends React.Component {
 	render(){
-		return (<div>Hello from React</div>);
+		return (<div>Hello same code</div>);
 	}
 }
 
