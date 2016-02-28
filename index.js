@@ -18,6 +18,6 @@ server.route([
 ]);
 
 server.start(function(){
-    console.log(`Server running at ${host} port ${port}`);
+    console.log(`Server running at port ${port}`);
 });
 
