@@ -21,7 +21,8 @@ server.register(require('inert'), (err) => {
 	        method: "GET",
 	        path: "/",
 	        handler: function(request, reply){
-	        	reply.file(index);
+	        	reply('hello');
+	        	//reply.file(index);
 	        }
 	    }
 	]);
