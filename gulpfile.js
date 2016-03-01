@@ -2,7 +2,6 @@ var gulp       = require('gulp');
 var babelify   = require('babelify');
 var browserify = require('browserify');
 var fs         = require('fs');
-//var server     = require('./app');
 
 var build = function () {
   var timer_name = "Build complete";
@@ -27,11 +26,4 @@ gulp.task('build', function () {
   build();
 });
 
-//gulp.task('default', ['build']);
-
-gulp.task('watch', function(){
- // console.log('starting watch');
-  gulp.watch(["./app/components/*/*.js", "./app/components/*.js"], ['build']);
-});
-
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build']);
