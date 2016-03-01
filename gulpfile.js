@@ -12,7 +12,7 @@ var build = function () {
   // from babel's example setup.
   // see https://babeljs.io/docs/setup/#browserify
   browserify({ debug: true })
-    .transform(babelify)
+    .transform(babelify, {presets: ["es2015", "react"]})
     .require("./app/client.js", { entry: true })
     .bundle()
     .on("error", function (err) {
@@ -21,7 +21,7 @@ var build = function () {
     .on('end', function() {
       console.timeEnd(timer_name);
     })
-    .pipe(fs.createWriteStream("./public/bundle.js"));
+    .pipe(source("./public/bundle.js"));
 };
 
 gulp.task('build', function () {
