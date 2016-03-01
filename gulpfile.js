@@ -6,7 +6,7 @@ var fs         = require('fs');
 var build = function () {
   var timer_name = "Build complete";
   console.time(timer_name);
-
+  console.log('Running build task');
   // from babel's example setup.
   // see https://babeljs.io/docs/setup/#browserify
   browserify({ debug: true })
