@@ -3,6 +3,7 @@ var babelify   = require('babelify');
 var browserify = require('browserify');
 var fs         = require('fs');
 var nodemon    = require('gulp-nodemon');
+var server     = require('./app');
 
 var build = function () {
   var timer_name = "Build complete";

@@ -3,7 +3,7 @@ import ReactDOM from 'react';
 
 export default class MainApp extends React.Component {
 	render(){
-		return (<div>Hello FROM REACT GULP WORKS</div>);
+		return (<div>YO FROM REACT GULP WORKS</div>);
 	}
 }
 
