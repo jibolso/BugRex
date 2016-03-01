@@ -2,7 +2,6 @@ var gulp       = require('gulp');
 var babelify   = require('babelify');
 var browserify = require('browserify');
 var fs         = require('fs');
-var nodemon    = require('gulp-nodemon');
 var server     = require('./app');
 
 var build = function () {
