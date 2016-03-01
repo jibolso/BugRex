@@ -15,7 +15,8 @@ server.register(require('inert'), (err) => {
             method: "GET",
             path: "/bundle.js",
             handler: function(request, reply){
-                reply.file(bundle);
+                reply('hello world');
+                //reply.file(bundle);
             }
         },{
 	        method: "GET",
