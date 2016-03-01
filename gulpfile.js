@@ -20,7 +20,7 @@ var build = function () {
     .on('end', function() {
       console.timeEnd(timer_name);
     })
-    .pipe(source("./public/bundle.js"));
+    .pipe(fs.createWriteStream("./public/bundle.js"));
 };
 
 gulp.task('build', function () {
