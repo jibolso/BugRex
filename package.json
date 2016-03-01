@@ -4,8 +4,7 @@
   "description": "A sample Node.js app using Express 4",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
-    //"postinstall": "gulp"
+    "start": "node app"
   },
   "dependencies": {
     "babel": "^6.5.2",
