@@ -1,22 +1,19 @@
 {
-  "name": "node-js-getting-started",
+  "name": "BugRex",
   "version": "0.1.5",
   "description": "A sample Node.js app using Express 4",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app",
     "postinstall": "gulp build"
   },
   "dependencies": {
-    "babel": "6.5.2",
-    "babel-register": "6.5.2",
-    "babelify": "7.2.0",
-    "browserify": "13.0.0",
-    "fs": "0.0.2",
-    "gulp": "3.9.1",
-    "hapi": "13.0.0",
-    "inert": "3.2.0",
-    "react": "0.14.7"
+    "babel": "^6.5.2",
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "hapi": "^13.0.0",
+    "nodemon": "^1.9.0",
+    "react": "^0.14.7"
   },
   "engines": {
     "node": "4.2.2"
@@ -30,5 +27,8 @@
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-react": "^6.5.0"
+  }
 }

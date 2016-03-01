@@ -21,14 +21,13 @@ server.register(require('inert'), (err) => {
 	        method: "GET",
 	        path: "/",
 	        handler: function(request, reply){
-	        	//reply('hello');
 	        	reply.file(index);
 	        }
 	    }
 	]);
 
 	server.start(function(){
-	    console.log(`Server running at port ${port}`);
+	    console.log(`YO Server running at port ${port}`);
 	});
 
 });
