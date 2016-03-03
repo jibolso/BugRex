@@ -1,0 +1,414 @@
+$body: 16px;
+$base: 24px;
+
+$body-white: rgba(255,255,255,0.80);
+$bg: #323654;
+$yellow: #4cb9ff;
+$chat-bg: #f3f5fa;
+$purple: #af7dff;
+$dark-bg: #23263b;
+$green: #a5d600;
+$pink: #ce2672;
+
+$tablet: 700px;
+$desktop: 1000px;
+
+html {
+  box-sizing: border-box;
+  body: 16px;
+  line-height: 24px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.hbl_txt_wrapper {
+  width: 98%;
+  margin-left: 1%;
+}
+
+.root {
+  display: block; 
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+@media (min-width: $tablet) {
+  .root {
+    display: flex;
+  }
+}
+
+
+.left {
+  background: $bg;
+  color: $body-white;
+}
+
+@media (min-width: $tablet) {
+  .left {
+    width: 50%;  
+  }
+}
+
+@media (min-width: 1000px) {
+  .left {
+    width: 60%;  
+  }
+}
+
+.right {
+  height: 100%;
+  background: $chat-bg !important;
+}
+
+@media (min-width: $tablet) {
+  .right {
+    position: fixed;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .right {
+    width: 40%;
+  }
+}
+
+.hero-content {
+  // height: 35vh;
+  margin-top: 7vh;
+}
+
+@media (min-width: $tablet) {
+  .hero-content {
+    
+    margin-top: 17vh;
+    // margin-bottom: 30vh;
+  }
+}
+
+@media (min-width: $desktop) {
+  .hero-content {
+    height: 40vh;
+    margin-top: 14vh;
+    // margin-bottom: 30vh;
+  }
+}
+
+
+.company-img{
+  width: 25%;
+}
+
+.employers-section{
+  width: 100%;
+}
+
+.left-content {
+  max-width: 700px;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.logo {
+  height: 38px;
+  width: 158px;
+}
+
+.olark {
+  width: 100px;
+  display:block;
+  margin:0 auto;
+}
+.partners-title {
+  text-align:center;
+}
+.becomeexpert {
+  color: rgba(white,0.8);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  font-size: 13px;  
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 100px;
+  line-height: 16px;
+  width: 160px;
+  height: 30px;
+  &:hover {
+    border: 1px solid rgba(255,255,255,0.4);
+    color: $yellow;
+  }
+}
+#habla_offline_email_input{
+      width: 90%;
+
+}
+#habla_name_input {
+    width: 90%;
+}
+
+#habla_offline_body_input {
+  width: 90%;
+}
+
+.headline {
+  color: $yellow;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 40px;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 16px;
+  line-height: 24px;
+  color: $body-white;
+
+}
+
+
+.second-tagline:after {
+  content: "Try it out at the bottom. ↓";  
+}
+
+ol {
+  padding-left: 20px;
+}
+
+h2 {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+}
+
+li {
+ color: $yellow;
+ font-weight: 600;
+}
+
+@media (min-width: 600px) {
+  .headline {
+    font-size: 33px;
+    line-height: 42px;
+  }
+  .tagline {
+    font-size: 18px;
+    line-height: 29px;
+  }
+  .second-tagline:after {
+      content: "Try it out now →";  
+  }
+  .faq {
+    margin-top: 100px;
+  }
+
+  .faq-section {
+    
+  }
+}
+
+.coding-icons {
+  margin-top: 30px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 75px;
+  li {
+    padding: 1px 10px;
+    margin: 0;
+    list-style: none;
+    display: inline;
+    background-color: rgba(255,255,255,0.1);
+    color: rgba(white,0.5);
+    border-radius: 12px; 
+    margin: 0 2px;
+    line-height: 33px;
+  }
+}
+
+
+.experts-section {
+  overflow:hidden;
+  margin-top: 60px;
+  background: $dark-bg;
+  padding-top: 50px;
+  padding-bottom: 5px0px;
+}
+
+.expert {
+  width: 50%;
+  display: table-cell;
+  float: left;
+  margin-bottom:30px;
+}
+
+.expert-name {
+  text-align: center;
+}
+
+.expert-img {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  border-radius: 100%;
+}
+
+.expert-text {
+  text-align: center;
+  padding: 0 30px;
+  font-size: 14px;
+  line-height:20px;
+}
+
+.faq {
+  margin-top: 100px;
+}
+
+.faq-section {
+  margin-top: 65px;
+  background: $dark-bg;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.footer {
+  margin-top: 100px;
+  font-size: 12px;
+  text-align: center;
+  color: rgba(255,255,255,0.25);
+  a {
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.link {
+  color: $yellow;
+}
+
+
+//Olark
+
+#hbl_body_message, .habla_conversation_person2, #habla_pre_chat_div span, #habla_pre_chat_error_span span{
+  color: $pink;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#habla_conversation_text_span {
+  font-size: 20px !important; 
+}
+
+#habla_conversation_div {
+  // height: 90vh !important;
+  height: auto !important;
+  padding-top: 10%;
+  font-size: 20px;
+
+  background: $chat-bg;
+}
+
+#habla_beta_container_do_not_rely_on_div_classes_or_names {
+  background: $chat-bg;
+  // height: 100% !important;
+  height: 100vh !important;
+}
+
+#habla_topbar_div {
+  background: rgba(black,0.1);
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+#habla_chatform_form {
+  textarea {
+    padding-top: 10px;
+  }
+  
+  textarea, #habla_input_div {
+    width: 100%;
+    height: 100px !important;
+  }
+  #habla_wcsend_input{
+    border: 1px solid rgb(219, 221, 226);
+    padding-left: 10px;
+
+  }
+  .hbl_txt_wrapper{
+    width: 98%;
+  }
+
+}
+
+.hbl_txt_wrapper{
+    width: 94%;
+  }
+
+#habla_pre_chat_div {
+  padding-top: 50px;
+}
+
+#habla_pre_chat_email_input {
+  width: 100% !important;
+  height: 50px !important;
+  margin-top: 50px;
+  font-size: 16px;
+  font-weight: 400;
+  padding-top: 10px;
+  padding-left: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.25);
+  color: #333;
+}
+
+#habla_pre_chat_submit_input {
+  display: none !important;
+  background: $yellow;
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: 3px;
+  color: white;
+  height: 50px;
+  width: 250px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+#habla_middle_div {
+  height: 100vh;
+}
+
+#habla_middle_wrapper_div {
+  height: calc( 100% - 162px );
+  padding-left: 20px;
+  overflow: scroll !important;
+} 
+
+#habla_wcsend_input {
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.25);
+}
+
+#habla_window_div {
+  margin: 0 !important;
+}
+
+.olark_avatar {
+  border-radius: 100%;
+
+}

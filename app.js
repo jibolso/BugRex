@@ -3,6 +3,7 @@ const server = new Hapi.Server();
 const inert = require('inert');
 const index = './public/index.html';
 const bundle = './public/bundle.js';
+const css   = './public/css/application.css';
 const port = 8080;
 
 server.connection({
@@ -17,7 +18,15 @@ server.register(require('inert'), (err) => {
             handler: function(request, reply){
                 reply.file(bundle);
             }
-        },{
+        },
+	    {
+            method: "GET",
+            path: "/css/application.css",
+            handler: function(request, reply){
+                reply.file(css);
+            }
+        },
+        {
 	        method: "GET",
 	        path: "/",
 	        handler: function(request, reply){

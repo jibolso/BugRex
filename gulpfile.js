@@ -1,7 +1,9 @@
 var gulp       = require('gulp');
+var sass       = require('gulp-sass');
 var babelify   = require('babelify');
 var browserify = require('browserify');
 var fs         = require('fs');
+var server     = require('./app');
 
 var build = function () {
   var timer_name = "Build complete";
@@ -30,4 +32,11 @@ gulp.task("heroku:production", function(){
     console.log('hello'); // the task does not need to do anything.
 });
 
-gulp.task('default', ['build']);
+gulp.task('sass', function(){
+  return gulp.src('./app/sass/application.scss')
+          .pipe(sass().on('error', sass.logError))
+          .pipe(gulp.dest('./public/css'))
+});
+
+
+gulp.task('default', ['build', 'sass']);
