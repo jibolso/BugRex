@@ -23,7 +23,14 @@ server.register(require('inert'), (err) => {
 	        handler: function(request, reply){
 	        	reply.file(index);
 	        }
-	    }
+	    },
+	    {
+            method: "GET",
+            path: "/{param}",
+            handler: function(request, reply){
+                reply.file(index);
+            }
+        }
 	]);
 
 	server.start(function(){
