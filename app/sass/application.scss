@@ -27,32 +27,32 @@ html {
   margin-left: 1%;
 }
 
-.root {
+.container-site {
   display: block; 
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
 }
 
 @media (min-width: $tablet) {
-  .root {
+  .container-site {
     display: flex;
   }
 }
 
 
-.left {
+#left {
   background: $bg;
   color: $body-white;
 }
 
 @media (min-width: $tablet) {
-  .left {
+  #left {
     width: 50%;  
   }
 }
 
 @media (min-width: 1000px) {
-  .left {
+  #left {
     width: 60%;  
   }
 }

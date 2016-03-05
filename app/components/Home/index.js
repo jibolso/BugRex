@@ -3,7 +3,7 @@ import React from 'react';
 export default class Home extends React.Component {
 	render(){
 		return (
-		<div className="left">
+			<div>
 	    	<div className="left-content hero">
 		        <div className="nav">
 		          <img classNameName="logo" src="images/logo2@2x.png" />
@@ -91,7 +91,7 @@ export default class Home extends React.Component {
 	              </div>
 	            </div>
 	          </div>
-	      </div>
+	          </div>
 		);
 	}
 }
