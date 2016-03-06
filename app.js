@@ -8,8 +8,9 @@ const bundle = './public/bundle.js';
 const css   = './public/css/application.css';
 const port = 8080;
 const intert = require('inert');
+const handler = require('./api/handler');
 
-if (process.env.ISPRODUCTION === undefined) {
+if (process.env.IS_PRODUCTION === undefined) {
     var config  = require('./config');
 }
 
@@ -24,19 +25,19 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
     }
 
     var authCookieOptions = {
-        password: process.env.COOKIEPASSWORD || config.cookiePassword, //Password used for encryption
+        password: process.env.COOKIE_PASSWORD || config.cookiePassword, //Password used for encryption
         cookie: 'auth', // Name of cookie to set
         isSecure: false
     };
 
     var facebookOptions = {
         provider: 'facebook',
-        password: 'somerandompassword',
-        //password: process.env.GITHUB_PASSWORD || config.password, //Password used for encryption
-        //clientId: process.env.CLIENTID || config.clientId, //'YourAppId',
-        //clientSecret: process.env.CLIENTSECRET || config.clientSecret,//'YourAppSecret',
-        clientId: '1684806715119958',
-        clientSecret: '2b175f8951cb59b392d2243b09c9656e',
+        //password: 'somerandompassword',
+        password: process.env.FACEBOOK_PASSWORD || config.facebookPassword, //Password used for encryption
+        clientId: process.env.CLIENT_ID || config.clientId, //'YourAppId',
+        clientSecret: process.env.CLIENT_SECRET || config.clientSecret,//'YourAppSecret',
+        //clientId: '1684806715119958',
+        //clientSecret: '2b175f8951cb59b392d2243b09c9656e',
         isSecure: false,
         //location: process.env.LOCATION || 'http://localhost:8080'
         location: server.info.uri
@@ -53,6 +54,11 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             handler: function(request, reply){
                 reply.file(bundle);
             }
+        },
+        {
+            method: "GET",
+            path: "/api/datasets/featured",
+            handler: handler.featuredExperts
         },
         {
             method: '*',

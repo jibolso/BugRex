@@ -37,4 +37,10 @@ gulp.task('sass', function(){
 });
 
 
+gulp.task('runServer', function(){
+  var server = require('./app');
+});
+
 gulp.task('default', ['build', 'sass']);
+
+gulp.task('dev', ['build', 'sass', 'runServer']);
