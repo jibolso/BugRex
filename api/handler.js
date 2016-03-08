@@ -4,20 +4,65 @@ const config = require('../config');
 
 mongoose.connect(process.env.MONGOLAB || config.mongolab);
 
-const featuredExperts = function(request, reply){
-	reply('Heloooo we are experts');
-};
-
-var userSchema = new Schema({
+var expertSchema = new Schema({
     email: String,
     name: String,
     profileImg: String,
-    raw: Object,
-    token: String,
-    completedChats: Array,
+    completedChats: Number,
     facebookId: Number,
-    uniqueId: String
+    uniqueId: String,
+    skills: Array
 });
+
+const Expert = mongoose.model('Expert', expertSchema);
+
+const featuredExperts = function(request, reply){
+    console.log('featuredExperts');
+    Expert.find({})
+        .sort({completedChats: -1})
+        .exec(function(err, experts){
+            if (err){
+                throw err;
+            }
+            if (experts) {
+                reply(experts);
+            } else {
+                reply(false);
+            }
+    });
+};
+
+const newExpert = (request, reply) => {
+        const payload = request.payload;
+        Expert.findOne({ url: payload.url }, function(err, expert){
+            if (err){
+                throw err;
+                reply.file(index);
+            }
+
+            if (expert) {
+                reply(expert);
+            }
+            else {
+                var new_expert = new Expert();
+                new_expert.email = payload.email;
+                new_expert.name = payload.name;
+                new_expert.profileImg = d.profileImg;
+                new_expert.skills = payload.skills;
+                new_expert.completedChats = payload.completedChats;
+                new_expert.facebookId = payload.facebookId;
+                new_expert.uniqueId = payload.uniqueId;
+                new_expert.description = 'stuff';
+                new_dataset.save( function(err, res){
+                if (err){
+                    throw error;
+                }
+                console.log('registration successful, dataset: ',res);
+                reply(res);
+                });
+            }
+        });
+}
 
 module.exports = {
 	featuredExperts: featuredExperts

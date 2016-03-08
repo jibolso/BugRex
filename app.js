@@ -30,18 +30,23 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         isSecure: false
     };
 
+    var githubOptions = {
+        provider: 'github',
+        password: process.env.GITHUB_PASSWORD || config.password, //Password used for encryption
+        clientId: process.env.GITHUB_CLIENT_ID || config.github.clientId, //'YourAppId',
+        clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,//'YourAppSecret',
+        isSecure: false,
+//        location: server.info.uri
+        location: process.env.LOCATION || 'http://localhost:8080'
+    };
+
     var facebookOptions = {
         provider: 'facebook',
-        //password: 'somerandompassword',
         password: process.env.FACEBOOK_PASSWORD || config.facebookPassword, //Password used for encryption
         clientId: process.env.CLIENT_ID || config.clientId, //'YourAppId',
         clientSecret: process.env.CLIENT_SECRET || config.clientSecret,//'YourAppSecret',
-        //clientId: '1684806715119958',
-        //clientSecret: '2b175f8951cb59b392d2243b09c9656e',
         isSecure: false,
-        //location: process.env.LOCATION || 'http://localhost:8080'
         location: server.info.uri
-
     };
 
     server.auth.strategy('bugrex-cookie', 'cookie', authCookieOptions);
@@ -57,7 +62,7 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         },
         {
             method: "GET",
-            path: "/api/datasets/featured",
+            path: "/api/experts/featured",
             handler: handler.featuredExperts
         },
         {
@@ -69,7 +74,6 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
                     mode: 'try'
                 },
                 handler: function (request, reply) {
-                    console.log('LOGIN');
                     if (!request.auth.isAuthenticated) {
                         return reply('Authentication failed due to: ' + request.auth.error.message);
                     }

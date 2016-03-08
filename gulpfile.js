@@ -36,6 +36,10 @@ gulp.task('sass', function(){
           .pipe(gulp.dest('./public/css'))
 });
 
+gulp.task('watch', function(){
+  gulp.watch(['./app/components/*/*js', './app/components/*.js'], ['build']);
+});
+
 
 gulp.task('runServer', function(){
   var server = require('./app');
@@ -43,4 +47,4 @@ gulp.task('runServer', function(){
 
 gulp.task('default', ['build', 'sass']);
 
-gulp.task('dev', ['build', 'sass', 'runServer']);
+gulp.task('dev', ['build', 'sass', 'runServer', 'watch']);
