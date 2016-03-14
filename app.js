@@ -30,9 +30,13 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         isSecure: false
     };
 
+    if (process.env.LOCATION) {
+        console.log('LOCATION: ', process.env.LOCATION);
+    }
+
     var githubOptions = {
         provider: 'github',
-        password: process.env.GITHUB_PASSWORD || config.password, //Password used for encryption
+        password: process.env.GITHUB_PASSWORD || config.github.password, //Password used for encryption
         clientId: process.env.GITHUB_CLIENT_ID || config.github.clientId, //'YourAppId',
         clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,//'YourAppSecret',
         isSecure: false,
@@ -49,6 +53,7 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         location: server.info.uri
     };
 
+    server.auth.strategy('github-oauth', 'bell', githubOptions);
     server.auth.strategy('bugrex-cookie', 'cookie', authCookieOptions);
     server.auth.strategy('facebook', 'bell', facebookOptions);
 
@@ -61,13 +66,56 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             }
         },
         {
+            method: 'GET',
+            path: '/static/{param*}',
+            handler: {
+                directory: {
+                    path: 'public',
+                    listing: true
+                }
+            }
+        },
+        {
+            method: ["GET", "POST"],
+            path: "/auth/github",
+            config: {
+                auth: 'github-oauth',
+                handler: handler.githubLogin
+            }
+        },
+        {
+            method: 'GET',
+            path: '/logout',
+            config: {
+                auth: false,
+                handler: handler.logout
+            }
+        },
+        {
             method: "GET",
-            path: "/api/experts/featured",
-            handler: handler.featuredExperts
+            path: "/api/users/featured",
+            handler: handler.featuredUsers
+        },
+        {
+            method: "GET",
+            path: "/api/user/{username}",
+            handler: handler.getPublicUser
+        },
+        {
+            method: "GET",
+            path: "/api/user",
+            config: {
+                auth: {
+                    strategy: 'bugrex-cookie',
+                    mode: 'try'
+                },
+                handler: handler.getUser
+            }
+                
         },
         {
             method: '*',
-            path: '/login',
+            path: '/auth/facebook',
             config: {
                 auth: {
                     strategy: 'facebook',
@@ -91,23 +139,31 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         {
 	        method: "GET",
 	        path: "/",
-	        handler: function(request, reply){
-                console.log('home!!!')
-	        	reply.file(index);
-	        }
+	        config: {
+                auth: {
+                    strategy: 'bugrex-cookie',
+                    mode: 'try'
+                },
+                handler: function(request, reply){
+                    if (request.auth.isAuthenticated) {
+                        console.log('is authenticated', request.auth.credentials);
+                    }
+                    reply.file(index);
+                }
+            }
 	    },
-	    {
+        {
             method: "GET",
-            path: "/{param}",
+            path: "/{param*}",
             handler: function(request, reply){
                 reply.file(index);
-            }
+            },
+
         }
 	]);
 
 	server.start(function(){
 	    console.log(`YO Server running at port ${port}`);
-        console.log('server.info.uri: ', server.info.uri);
 	});
 
 });

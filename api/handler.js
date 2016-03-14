@@ -4,66 +4,127 @@ const config = require('../config');
 
 mongoose.connect(process.env.MONGOLAB || config.mongolab);
 
-var expertSchema = new Schema({
+var userSchema = new Schema({
     email: String,
     name: String,
+    username: String,
     profileImg: String,
     completedChats: Number,
     facebookId: Number,
     uniqueId: String,
-    skills: Array
+    skills: Array,
+    githubUrl: String
 });
 
-const Expert = mongoose.model('Expert', expertSchema);
+const User = mongoose.model('User', userSchema);
 
-const featuredExperts = function(request, reply){
-    console.log('featuredExperts');
-    Expert.find({})
+const featuredUsers = function(request, reply){
+    User.find({})
         .sort({completedChats: -1})
-        .exec(function(err, experts){
+        .exec(function(err, users){
             if (err){
                 throw err;
             }
-            if (experts) {
-                reply(experts);
+            if (users) {
+                reply(users);
             } else {
                 reply(false);
             }
     });
 };
 
-const newExpert = (request, reply) => {
-        const payload = request.payload;
-        Expert.findOne({ url: payload.url }, function(err, expert){
+const getPublicUser = (request, reply) => {
+    console.log('GETPUBLICUSER----------')
+    const username = request.params.username;
+    User.findOne({ username: username }, function(err, user){
+        if (err){
+            throw err;
+            reply.redirect('/');
+        }
+
+        if (user) {
+            reply(user);
+        }
+        else {
+            reply(false);
+        }
+    });
+}
+
+
+const getUser = (request, reply) => {
+    console.log('------- GET USER---------')
+    if (request.auth.isAuthenticated) {
+        console.log('request.auth.credentials: ', request.auth.credentials)
+        const username = request.auth.credentials.username;
+        console.log('username: ', username);
+        User.findOne({ username: username }, function(err, user){
             if (err){
                 throw err;
-                reply.file(index);
+                reply.redirect('/');
+            }
+
+            if (user) {
+                reply(user);
+            }
+            else {
+                reply(false);
+            }
+        });
+    }
+}
+
+
+const githubLogin = (request, reply) => {
+    const payload = request.auth.credentials;
+    console.log('request: ', request);
+    if (request.auth.isAuthenticated) {
+        const username = request.auth.credentials.profile.username;
+        User.findOne({ username: username }, function(err, expert){
+            if (err){
+                throw err;
+                reply.redirect('/');
             }
 
             if (expert) {
-                reply(expert);
+                request.auth.session.set(expert);
+                reply.redirect('/');
             }
+
             else {
-                var new_expert = new Expert();
-                new_expert.email = payload.email;
-                new_expert.name = payload.name;
-                new_expert.profileImg = d.profileImg;
-                new_expert.skills = payload.skills;
-                new_expert.completedChats = payload.completedChats;
-                new_expert.facebookId = payload.facebookId;
-                new_expert.uniqueId = payload.uniqueId;
-                new_expert.description = 'stuff';
-                new_dataset.save( function(err, res){
-                if (err){
-                    throw error;
-                }
-                console.log('registration successful, dataset: ',res);
-                reply(res);
+                var new_user = new User();
+                new_user.name = payload.profile.displayName;
+                new_user.email = payload.profile.email;
+                new_user.username = payload.profile.username;
+                new_user.skills = [];
+                new_user.profileImg = payload.profile.raw.avatar_url;
+                new_user.githubUrl = payload.profile.raw.url;
+                new_user.completedChats = 0;
+                new_user.uniqueId = 'github_' + payload.profile.id;
+                request.auth.session.set(new_user);
+                new_user.save( function(err, res) {
+                    if (err){
+
+                        throw error;
+                    }
+                    reply.redirect('/');
                 });
             }
         });
+    } else {
+        return reply('Not logged in...').code(401);
+    }
+}
+
+const logout = (request, reply) => {
+    request.auth.session.clear();
+    reply.redirect('/');
 }
 
 module.exports = {
-	featuredExperts: featuredExperts
+	featuredUsers: featuredUsers,
+    githubLogin: githubLogin,
+    getUser: getUser,
+    getPublicUser: getPublicUser,
+    logout: logout
 };

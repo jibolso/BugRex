@@ -4,7 +4,7 @@ export default class Login extends React.Component {
 	render() {
 		return (
 			<div>
-			LOGIN
+				<a className="link" href="/auth/github">Login with GitHub</a>
 			</div>
 		);
 	}

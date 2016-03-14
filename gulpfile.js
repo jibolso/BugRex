@@ -37,9 +37,8 @@ gulp.task('sass', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(['./app/components/*/*js', './app/components/*.js'], ['build']);
+  gulp.watch(['./app/components/*/*js', './app/components/*.js', './app/utils/*.js'], ['build']);
 });
-
 
 gulp.task('runServer', function(){
   var server = require('./app');

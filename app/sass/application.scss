@@ -22,6 +22,9 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  margin: 0;
+}
 .hbl_txt_wrapper {
   width: 98%;
   margin-left: 1%;
@@ -40,19 +43,19 @@ html {
 }
 
 
-#left {
+.left {
   background: $bg;
   color: $body-white;
 }
 
 @media (min-width: $tablet) {
-  #left {
+  .left {
     width: 50%;  
   }
 }
 
 @media (min-width: 1000px) {
-  #left {
+  .left {
     width: 60%;  
   }
 }
@@ -96,13 +99,17 @@ html {
   }
 }
 
-
 .company-img{
   width: 25%;
 }
 
 .employers-section{
   width: 100%;
+}
+
+.img-small {
+  width: 150px;
+  height: 150px;
 }
 
 .left-content {
@@ -112,6 +119,70 @@ html {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+
+
+.live-expert-box {
+  height:70px;
+  background-color: white;
+  padding: 15px;
+
+  .live-expert-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      margin-left: 30px;
+      vertical-align: middle;
+  }
+
+  .live-expert-button {
+      border-radius: 0px;
+      border: 0px;
+      background-color: #9191B5;
+      color: white;
+      padding: 7px 15px;
+      margin-left: 17px;
+  }
+
+  .live-expert-name {
+    display: inline;
+    margin-left: 20px;
+  }
+
+}
+
+.ReactModal__Content {
+  font-family: 'Open Sans', sans-serif;
+  width: 40%;
+  .modal-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    vertical-align: top;
+  }
+
+  .modal-username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px
+  }
+
+.modal-skills {
+  padding: 0px;
+}
+
+.modal-skill {
+  position: relative;
+  display: inline-block;
+  padding: 0px 10px;
+  list-style: none;
+  background-color: #23263B;
+  color: white;
+  border-radius: 12px; 
+  margin: 0 2px;
+}
+  
 }
 
 .nav {
@@ -227,7 +298,7 @@ li {
     padding: 1px 10px;
     margin: 0;
     list-style: none;
-    display: inline;
+    display: inline-block;
     background-color: rgba(255,255,255,0.1);
     color: rgba(white,0.5);
     border-radius: 12px; 
@@ -323,11 +394,11 @@ li {
 
 #habla_beta_container_do_not_rely_on_div_classes_or_names {
   background: $chat-bg;
-  // height: 100% !important;
-  height: 100vh !important;
+  //height: 100vh !important;
 }
 
 #habla_topbar_div {
+  display: none;
   background: rgba(black,0.1);
   height: 50px;
   text-align: center;
@@ -376,7 +447,7 @@ li {
 }
 
 #habla_pre_chat_submit_input {
-  display: none !important;
+  //display: none !important;
   background: $yellow;
   border: 1px solid rgba(0,0,0,0.25);
   border-radius: 3px;
