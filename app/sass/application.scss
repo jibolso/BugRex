@@ -107,9 +107,39 @@ body {
   width: 100%;
 }
 
+.featured-container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px 40px;
+  font-size: 14px;
+}
+.featured-user {
+    flex: initial;
+    width: 200px;
+    margin: 20px 30px;
+}
+
+.featured-title {
+  text-align: center;
+}
+
+.featured-img {
+  border-radius: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.featured-description {
+  text-align: center;
+}
+
+.featured-chats {
+  text-align: center;
+}
+
 .img-small {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .left-content {

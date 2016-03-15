@@ -21,16 +21,16 @@ export default class Featured extends React.Component {
 	
 	render() {
 		return (
-			<div>
+			<div className="featured-container">
 			{this.state.users.map((user, index) => {
 				return(
 					<div key={index} className="featured-user">
-						<h3>{user.username}</h3>
-						<p>{user.description}</p>
-						<span>Chats : {user.completedChats}</span>
+						<h3 className="featured-title">{user.username}</h3>
 						<img 
 							src={user.profileImg} 
-							className="img-small"/>
+							className="img-small featured-img"/>
+						<p className="featured-chats" >Chats : {user.completedChats}</p>
+						<p className="featured-description">{user.description}</p>
 					</div>
 				);
 			})}

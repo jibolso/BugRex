@@ -14,31 +14,16 @@ function getExpert() {
   return expert;
 };
 
-var event = new Event('build');
+var messageEvent = new Event('newMessageFromOperator');
 
-document.addEventListener('build', function (e) {
-  console.log('build triggered');
+document.addEventListener('newMessageFromOperator', function (e) {
+  console.log('newMessageFromOperator triggered');
 }, false);
 
 
-document.dispatchEvent(event);
+document.dispatchEvent(messageEvent);
 
-/*
-var evt = document.createEvent("Event");
-evt.initEvent("myEvent",true,true);
-
-// custom param
-evt.foo = expertData;
-
-function myEventHandler(){
-  console.log('event triggered');
-}
-
-//register
-document.addEventListener("myEvent",myEventHandler,false);*/
-
-//invoke
-//document.dispatchEvent(evt);
+//dispatchEvent(evt);
 
 
 
@@ -59,14 +44,8 @@ function startCountDown(seconds, message, callback) {
 }
 
 function getExpertData(name){
-  event.name = name;
-  document.dispatchEvent(event);
-
-  Request.get('api/expert/' + name)
-    .end( (err, res) => {
-      expertData = res;
-      console.log('res: ',res);
-    });
+  messageEvent.name = name;
+  document.dispatchEvent(messageEvent);
 }
 
 function scrollMagic() {
@@ -122,8 +101,8 @@ function searchForExperts(){
     });
 }
 olark('api.chat.onReady', function (){  
-console.log('-----olark ready');
-  
+  console.log('-----olark ready');
+ 
 /*  var emailForm = document.getElementById('habla_pre_chat_email_input');
 
   emailForm.addEventListener('keydown', function(event){
@@ -142,9 +121,8 @@ console.log('-----olark ready');
   });*/
 });
 
-
 olark('api.chat.onMessageToVisitor', function(event){
-  console.log('onMessageToVisitor');
+  console.log('----------onMessageToVisitor');
   expert = event.message.nickname;
   getExpertData(event.message.nickname);
   scrollMagic();

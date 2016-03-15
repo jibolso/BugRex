@@ -24,7 +24,6 @@ export default class Home extends React.Component {
     	});
 	}
 	render(){
-		console.log('home: ', this);
 		let authButton;
 		if (!this.props.user.name) {
 			authButton = (<a href="/auth/github"> GitHub Login</a>);

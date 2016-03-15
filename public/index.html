@@ -10,12 +10,274 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
+<!-- begin olark code -->
+<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+f[z]=function(){
+(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+0:+new Date};a.P=function(u){
+a.p[u]=new Date-a.p[0]};function s(){
+a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+b.contentWindow[g].open()}catch(w){
+c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('2115-606-10-6991');/*]]>*/</script><noscript><a href="https://www.olark.com/site/2115-606-10-6991/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+<!-- end olark code -->
+
+
 <!-- end olark code -->
   <script type="text/javascript">
     !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
     analytics.load("bgwp8babW6uFBijHHAQt2dTy5ADz4dpq");
     analytics.page()
   }}();
+</script>
+<script type="text/javascript">
+
+var messageNumber = 0;
+var olarkMessage;
+var registermessageNumber = true;
+var count;
+var counter;
+var operatorHasReplied = false;
+var visitorAnswers = [];
+var expertData = {};
+var elem = {};
+var expert = '';
+
+function getExpert() {
+  return expert;
+};
+
+var event = new Event('build');
+
+document.addEventListener('build', function (e) {
+  console.log('build triggered');
+}, false);
+
+
+document.dispatchEvent(event);
+
+
+function startCountDown(seconds, message, callback) {
+  clearInterval(counter);
+  count = seconds;
+  counter = setInterval(timer, 1000);
+    function timer() {
+      count=count-1;
+      if (count <= 0)
+      {
+         clearInterval(counter);
+         callback(message);
+         return;
+      }
+  }
+  return counter;
+}
+
+function getExpertData(name){
+  event.name = name;
+  document.dispatchEvent(event);
+
+  Request.get('api/expert/' + name)
+    .end( (err, res) => {
+      expertData = res;
+      console.log('res: ',res);
+    });
+}
+
+function scrollMagic() {
+   setTimeout(function(){
+      var objDiv = document.getElementById("habla_middle_wrapper_div");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }, 50);
+}
+
+function answerVisitor(messageObject) {
+  if (!operatorHasReplied) {
+    messageNumber += 1;
+    olark('api.chat.sendMessageToVisitor', messageObject);
+  }
+}
+
+function notifyVisitor(messageObject) {
+  if (!operatorHasReplied) {
+    messageNumber += 1;
+    olark('api.chat.sendNotificationToVisitor', messageObject);
+  }
+}
+
+function answerVisitorThenSearch(messageObject) {
+  messageNumber += 1;
+  olark('api.chat.sendMessageToVisitor', messageObject);
+  searchForExperts();
+  setTimeout(function(){
+    if (!operatorHasReplied) {
+        var foundUsMessage = {
+              body: "while I'm looking, we'd love if you'd tell us how you found BugRex :)",
+              nickname: 'Andy'
+          }
+        olark('api.chat.sendMessageToVisitor', foundUsMessage);
+    }
+  }, 5000);
+}
+
+function saveMessageFromVisitor(index, question, answer){
+  visitorAnswers.push(answer);
+}
+
+function searchForExperts(){
+  var sorryMessage = {
+                body: "I'm really sorry, I couldn't find an experts to help you. Please try again another time.",
+                nickname: 'Andy'
+            }
+  startCountDown(120, sorryMessage, answerVisitor);
+  olark('api.chat.sendNotificationToOperator',
+    {
+        body: 'SURVEY COMPLETED! This chat is up for grabs the next two minutes!'
+
+    });
+}
+olark('api.chat.onReady', function (){  
+  console.log('-----olark ready');
+ 
+/*  var emailForm = document.getElementById('habla_pre_chat_email_input');
+
+  emailForm.addEventListener('keydown', function(event){
+    setTimeout(function(){
+      if (event.which === 13 && document.getElementById('habla_pre_chat_email_input').offsetParent === null) {
+        if (!operatorHasReplied) {
+        var greet = "hey, I'll ask you a few questions, so we can get find an expert who knows how to help you. Ok?";
+            olarkMessage = {
+                body: greet,
+                nickname: 'Rex'
+            }
+            startCountDown(0, olarkMessage, answerVisitor);
+        }
+      }
+    },500);
+  });*/
+});
+
+olark('api.chat.onMessageToVisitor', function(event){
+  console.log('----------onMessageToVisitor');
+  expert = event.message.nickname;
+  getExpertData(event.message.nickname);
+  scrollMagic();
+  if (event.message.automated === false) {
+    operatorHasReplied = true;
+  }
+});
+
+olark('api.chat.onOperatorsAvailable', function() {
+ /* console.log('onOperatorsAvailable')
+  var liveBadge = document.createElement('div');
+  var text = document.createTextNode("Experts are live"); 
+  liveBadge.appendChild(text);
+  var chatTitle = document.getElementById("left");
+  document.body.insertBefore(liveBadge, chatTitle); */
+    // turn something green
+    // document.getElementById("chat-indicator").className = "live";
+
+/*
+hacky style for 'live button'
+    position: absolute;
+    top: 20px;
+    left: 63%;
+    display: inline;
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    border-radius: 100%;
+
+*/
+});
+
+function isEmail(text) {
+  alphaSplit = text.split('@');
+  if (alphaSplit.length === 2) {
+    var afterAlpha = alphaSplit[1].split('.');
+    if (afterAlpha.length >= 2) {
+      return true;
+    }
+  }
+  return false;
+}
+
+olark('api.chat.onOperatorsAway', function() {
+    // make something red
+    // document.getElementById("chat-indicator").className = "no-live";
+});
+
+olark('api.chat.onMessageToOperator', function(event) {
+    scrollMagic();
+      if (!operatorHasReplied) {
+        if (messageNumber === 0) {
+            //saveMessageFromVisitor(olarkMessage.body, event.message.body);
+            olarkMessage = {
+                body: "cool. how can we help you?",
+                nickname: 'Andy'
+            }
+            startCountDown(4, olarkMessage, answerVisitor);
+        }
+
+        else if (messageNumber === 1) {
+            saveMessageFromVisitor(olarkMessage.body, event.message.body);
+            olarkMessage = {
+                body: "which technologies are involved in the problem?",
+                nickname: 'Andy'
+            }
+            startCountDown(5, olarkMessage, answerVisitor);
+        }
+
+        else if (messageNumber === 2) {
+            saveMessageFromVisitor(olarkMessage.body, event.message.body);
+            olarkMessage = {
+                body: "awesome, to continue I'm gonna need your email case we get disconnected",
+                nickname: 'Andy'
+            }
+            startCountDown(5, olarkMessage, answerVisitor);
+        }
+
+         else if (messageNumber === 3) {
+          var emailVerif = isEmail(event.message.body);
+            if (emailVerif === true) {
+                olarkMessage = {
+                    body: "thanks mate, I'm searching for an expert. it can take up to two minutes, so hold tight...",
+                    nickname: 'Andy'
+                }
+                startCountDown(5, olarkMessage, answerVisitorThenSearch);
+            } else {
+              console.log('no email');
+              
+              setTimeout(function(){
+                olarkMessage = {
+                    body: "that doesn't look like an email address to me ;)",
+                    nickname: 'Andy'
+                };
+                olark('api.chat.sendMessageToVisitor', olarkMessage);
+              }, 1000);
+            }
+        }
+      }
+});
+
+setInterval(function(){
+  var composing = document.getElementsByClassName('olark-composing-message');
+  if (composing.length > 0){
+    var objDiv = document.getElementById("habla_middle_wrapper_div");
+      objDiv.scrollTop = objDiv.scrollHeight;
+  }
+}, 1000);
+
+
 </script>
 </head>
 <body>

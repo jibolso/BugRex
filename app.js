@@ -102,7 +102,7 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             handler: handler.getPublicUser
         },
         {
-            method: "GET",
+            method: ["GET", "PUT"],
             path: "/api/user",
             config: {
                 auth: {

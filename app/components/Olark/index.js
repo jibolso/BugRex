@@ -12,15 +12,15 @@ export default class Olark extends React.Component {
 	}
 
 	render(){
-		console.log('olark rendering');
+		console.log('olark rendering, this.props:', this.props);
 		return (
 			<div className="right">
 				<div className="live-expert-box">
 					<img 
 						className="live-expert-img" 
-						src={this.props.user.profileImg} />
+						src={this.props.operator.profileImg} />
 					<p className="live-expert-name">
-					{this.props.user.username}
+					{this.props.operator.username}
 					</p>
 					<input 
 						className="live-expert-button"

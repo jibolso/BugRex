@@ -13,7 +13,8 @@ var userSchema = new Schema({
     facebookId: Number,
     uniqueId: String,
     skills: Array,
-    githubUrl: String
+    githubUrl: String,
+    description: String
 });
 
 const User = mongoose.model('User', userSchema);
@@ -53,24 +54,51 @@ const getPublicUser = (request, reply) => {
 
 
 const getUser = (request, reply) => {
-    console.log('------- GET USER---------')
-    if (request.auth.isAuthenticated) {
-        console.log('request.auth.credentials: ', request.auth.credentials)
-        const username = request.auth.credentials.username;
-        console.log('username: ', username);
-        User.findOne({ username: username }, function(err, user){
-            if (err){
-                throw err;
-                reply.redirect('/');
-            }
+    console.log('------- USER---------')
 
-            if (user) {
-                reply(user);
-            }
-            else {
-                reply(false);
-            }
-        });
+    if (request.auth.isAuthenticated) {
+        const username = request.auth.credentials.username;
+        if (request.method === 'put') {
+            console.log('PUT')
+            User.findOne({ username: username }, function(err, user){
+                
+                if (err){
+                    throw err;
+                    reply(false);
+                }
+
+                if (user) {
+                    user.description = request.payload.description;
+                    user.markModified('description');
+                    user.save(function(err){
+                        console.log('saving: user.descirption: ', user.description);
+                        reply({
+                            description: user.description
+                        });
+                    });
+                }
+                else {
+                    reply(false);
+                }
+            });    
+
+        } else if (request.method === 'get') {
+            console.log('request.auth.credentials: ', request.auth.credentials)
+            console.log('username: ', username);
+            User.findOne({ username: username }, function(err, user){
+                if (err){
+                    throw err;
+                    reply.redirect('/');
+                }
+
+                if (user) {
+                    reply(user);
+                }
+                else {
+                    reply(false);
+                }
+            });
+        }
     }
 }
 
