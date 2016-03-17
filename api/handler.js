@@ -58,6 +58,7 @@ const getUser = (request, reply) => {
 
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.username;
+        
         if (request.method === 'put') {
             console.log('PUT')
             User.findOne({ username: username }, function(err, user){
@@ -105,7 +106,6 @@ const getUser = (request, reply) => {
 
 const githubLogin = (request, reply) => {
     const payload = request.auth.credentials;
-    console.log('request: ', request);
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.profile.username;
         User.findOne({ username: username }, function(err, expert){
@@ -149,10 +149,15 @@ const logout = (request, reply) => {
     reply.redirect('/');
 }
 
+const saveTranscript = (request, reply) => {
+    console.log('request.payload: ', request.payload);
+}
+
 module.exports = {
 	featuredUsers: featuredUsers,
     githubLogin: githubLogin,
     getUser: getUser,
     getPublicUser: getPublicUser,
-    logout: logout
+    logout: logout,
+    saveTranscript: saveTranscript 
 };

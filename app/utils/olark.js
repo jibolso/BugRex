@@ -15,7 +15,6 @@ function getExpert() {
 };
 
 var messageEvent = new Event('newMessageFromOperator');
-
 document.addEventListener('newMessageFromOperator', function (e) {
   console.log('newMessageFromOperator triggered');
 }, false);

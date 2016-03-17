@@ -114,6 +114,13 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
                 
         },
         {
+            method: ["POST"],
+            path: "/api/transcript",
+            config: {
+                handler: handler.saveTranscript
+            }     
+        },
+        {
             method: '*',
             path: '/auth/facebook',
             config: {

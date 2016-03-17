@@ -34,6 +34,7 @@ export default class Main extends React.Component {
 		this.update = this.update.bind(this);
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
+		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 		this.state = {
 			operator: {
 				profileImg: 'static/images/dino.png',
@@ -79,7 +80,7 @@ export default class Main extends React.Component {
 	update(){
 		let operator = getExpert();
 		console.log('operator: ', operator);
-		if (operator !== this.state.user.operator) {
+		if (operator !== this.state.user.operator && operator !== 'Andy') {
 			Request.get('/api/user/' + operator)
 			.then(res=> {
 				this.setState({
@@ -89,11 +90,29 @@ export default class Main extends React.Component {
 		}
 	}
 
+	handleDescriptionChange(ev) {
+		if (ev &&  ev.preventDefault) {
+			ev.preventDefault();
+		}
+		const newDescription = ev.target.value;
+		this.setState({
+			description: newDescription
+		});
+		Request.put('/api/user')
+			.send({
+				description: newDescription
+			})
+			.then(res => {
+				// something
+			});		
+	}
+
 
 	render(){
-		console.log('this: ', this);
-        let children = React.Children.map(this.props.children, (child) => {
-            return React.cloneElement(child, this.state);
+        let children = React.Children.map(this.props.children, child => {
+            return React.cloneElement(child, Object.assign(this.state, {
+            	handleDescriptionChange: this.handleDescriptionChange
+            }));
         });
 
 		let olark;
@@ -101,6 +120,7 @@ export default class Main extends React.Component {
 			olark = <Olark onClick={this.openModal} {...this.state} />;
 
 		}
+		console.log('this.state: ', this.state);
 		return (
 			<div className="container-site">
 				{children}
