@@ -151,6 +151,7 @@ const logout = (request, reply) => {
 
 const saveTranscript = (request, reply) => {
     console.log('request.payload: ', request.payload);
+    reply('success');
 }
 
 module.exports = {
