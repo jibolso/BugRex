@@ -6,7 +6,9 @@ const featuredUsers = function(request, reply){
 
 const getPublicUser = (request, reply) => {
     const username = request.params.username;
-    models.getPublicUser(username);
+    models.getPublicUser(username, (user) => {
+        reply(user);
+    });
 }
 
 

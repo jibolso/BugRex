@@ -87,9 +87,6 @@ export default class Main extends React.Component {
 					operator: res.body
 				});
 			});
-
-			Request.post('/api/user/chat')
-				.data()
 		}
 
 	}

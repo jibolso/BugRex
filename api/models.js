@@ -33,7 +33,7 @@ const User = mongoose.model('User', userSchema);
 const example = (reply) => {
     // block
 };
-// TODO FINISH UP MODELS, SEPARATING THE CONSERNS BETWEEN HANDLERS AND MODELS
+
 const getFeaturedUsers = (reply) => {
 	User.find({})
         .sort({completedChats: -1})
@@ -49,20 +49,19 @@ const getFeaturedUsers = (reply) => {
     });
 }
 
-const getPublicUser = (username, reply) => {
+const getPublicUser = (username, callback) => {
 	User.findOne({ username: username }, function(err, user){
         if (err){
             throw err;
-            reply.redirect('/');
+            callback(false);
         }
         if (user) {
-            reply(user);
+            callback(user);
         } else {
-            reply(false);
+            callback(false);
         }
     });
 }
-
 
 const getUser = (username, callback) => {
 	User.findOne({ username: username }, function(err, user){
