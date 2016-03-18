@@ -99,6 +99,21 @@ body {
   }
 }
 
+.account-container {
+  display: block;
+  margin: 0 auto;
+}
+
+.account-img {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+}
+
+.account-title {
+  text-align: center;
+}
+
 .company-img{
   width: 25%;
 }

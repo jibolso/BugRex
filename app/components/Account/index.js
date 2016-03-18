@@ -14,14 +14,15 @@ export default class Account extends React.Component {
 			return null;
 		}
 		return (
-			<div>
+			<div className="account-container">
 				<div>
 				<form onSubmit={this.updateUserData}>
-				<h5>{this.props.user.username}</h5>
+				<h3 className="account-title">{this.props.user.username}</h3>
 				<img 
-					className="profile-img img-small"
+					className="account-img"
 					src={this.props.user.profileImg}/>
 				<br/>
+				<p>Completed chats: {this.props.user.completedChats}</p>
 				<textarea
 					ref="description"
 					defaultValue={this.props.user.description}
