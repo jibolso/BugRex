@@ -9,7 +9,8 @@ export default class Account extends React.Component {
 	}
 
 	render () {
-		if (!this.props.user.username) {
+		console.log('account this.props.user: ', this.props.user);
+		if (!this.props.user) {
 			return null;
 		}
 		return (

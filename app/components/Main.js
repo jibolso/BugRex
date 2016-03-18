@@ -48,19 +48,19 @@ export default class Main extends React.Component {
 			    name: "Per Harald Borgen",
 			    skills: ['Chatting']
 			},
-			user: {
-				skills: []
-			},
 			modalOpen: false
 		};
 	}
 
 	componentDidMount(){
+		console.log('componentDidMount');
 		document.addEventListener("newMessageFromOperator", this.update, false);
 		Request.get('/api/user')
-			.then(res=> {
+			.then(res => {
+				console.log('user res: ', res);
 				this.setState({
-					user: res.body
+					user: res.body,
+					isAuthenticated: true
 				});
 			});
 	}
@@ -82,12 +82,16 @@ export default class Main extends React.Component {
 		console.log('operator: ', operator);
 		if (operator !== this.state.user.operator && operator !== 'Andy') {
 			Request.get('/api/user/' + operator)
-			.then(res=> {
+			.then(res => {
 				this.setState({
 					operator: res.body
 				});
 			});
+
+			Request.post('/api/user/chat')
+				.data()
 		}
+
 	}
 
 	handleDescriptionChange(ev) {

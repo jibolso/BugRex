@@ -25,10 +25,10 @@ export default class Home extends React.Component {
 	}
 	render(){
 		let authButton;
-		if (!this.props.user.name) {
-			authButton = (<a href="/auth/github"> GitHub Login</a>);
-		} else {
+		if (this.props.user) {
 			authButton = (<a href="/logout"> Logout</a>);
+		} else {
+			authButton = (<a href="/auth/github"> GitHub Login</a>);
 		}
 		return (
 		<div className="left">
