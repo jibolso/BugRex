@@ -26,32 +26,21 @@ export default class Home extends React.Component {
     	});
 	}
 	render(){
-		let authButton, account;
+		let authButton;
 		if (this.props.user) {
 			authButton = (<a href="/logout"> Logout</a>);
-			account = (<p className="route-link">
-			          	<Link to="/account">Account</Link>
-			          </p>
-			);
+
 		} else {
 			authButton = (<a href="/auth/github"> GitHub Login</a>);
 		}
 		return (
 		<div className="left">
 	    	<div className="left-content hero">
-		        <div className="nav">
-		          <img className="logo" src="static/images/logo2@2x.png" />
-		          {account}
-		          <p className="route-link">
-		          	<Link to="/featured">Experts</Link>
-		          </p>
-
-		          <a className="becomeexpert" href="https://bugrex.typeform.com/to/Rv5TvD" target="_blank">Become an Expert</a>
-		      	</div>
 		      	<div className="hero-content">
 		          <h1 className="headline">Get free coding help right now</h1>
 		          <p className="tagline">Chat with a professional developer to understand new concepts, ask questions or fix annoying bugs. No money involved.</p>
 		          <p className="second-tagline" className="tagline"></p>
+		        </div>
 		        </div>
 			    <div className="faq-section">
 		      	  <div className="left-content">
@@ -60,17 +49,9 @@ export default class Home extends React.Component {
 		            <li>HTML/CSS</li>
 		            <li>JavaScript</li>
 		            <li>PHP</li>
-		            <li>Ruby</li>
-		            <li>Python</li>
 		            <li>Java</li>
 		            <li>jQuery</li>
 		            <li>React.js</li>
-		            <li>Angular.js</li>
-		            <li>WordPress</li>
-		            <li>Squarespace</li>
-		            <li>Windows</li>
-		            <li>OS X</li>
-		            <li>Linux</li>
 		          </ul>
 		          <h2>HOW IT WORKS</h2>
 		          <p className="how-it-works-body">Googling to solve a problem is a not always the easiest. Sometimes it's really nice to be able to instantly talk to a real person about your problems. Whether that is to ask the newbie questions you don't dare to ask other places, let an expert teach you something you don't fully understand, or let the expert help you fix annoying bugs. We recommend you try the chat, and experience what it's like.</p>
@@ -91,33 +72,6 @@ export default class Home extends React.Component {
 		              <li>Why haven't I tried it yet?</li>
 		              <p>You'll have to ask yourself that. It's really super easy to try it out to the right (desktop/tablet) and to the bottom (mobile).</p>
 		              </ol>
-		              <div className="experts-section">
-		                <h2>SOME OF OUR EXPERTS</h2>
-		                <div className="th">
-		                <div className="expert">
-		                  <h3 className="expert-name">Andy McGuinness</h3>
-		                  <img className="expert-img" src="static/images/andyblue.jpg"/>
-		                  <p className="expert-text">Freelance WordPress/front-end developer working for startups and digital agencies.</p>
-		                </div>
-		                <div className="expert">
-		                  <h3 className="expert-name">Per Borgen</h3>
-		                  <img className="expert-img" src="static/images/perblue.jpg"/>
-		                  <p className="expert-text">Front-end developer at Xeneta, with a focus on React.js. <a className="link" href="https://medium.com/@oslokommuneper">Writes articles</a> on coding.</p>
-		                </div>
-		              </div>
-		                <div className="th">
-		                <div className="expert">
-		                  <h3 className="expert-name">Alexander Maslov</h3>
-		                  <img className="expert-img" src="static/images/alexanderblue.jpg"/>
-		                  <p className="expert-text">Developer at Scalex. Founder of <a href="https://instructortut.ru/" className="link">Instructortut.</a>. Ruby on Rails, React.js, Angular.js</p>
-		                </div>
-		                <div className="expert">
-		                  <h3 className="expert-name">Andreas Hennie</h3>
-		                  <img className="expert-img" src="static/images/andreasblue.jpg"/>
-		                  <p className="expert-text">UX designer and digital marketer. Founder of Bonito. HTML&CSS, Facebook Ads, AdWords</p>
-		                </div>
-		                </div>
-		              </div>
 		              <div className="partners">
 		                <h3 className="partners-title">Sponsored by:</h3>
 		               <a href="http://www.olark.com?utm_campaign=BugRex&utm_source=Partners"> <img className="olark" src="static/images/olark.png"/>
@@ -131,7 +85,6 @@ export default class Home extends React.Component {
 		              </div>
 		            </div>
 		            </div>
-		          </div>
 		          </div>
 		);
 	}

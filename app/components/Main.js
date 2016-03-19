@@ -3,6 +3,7 @@ import React from "react";
 import Olark from './Olark';
 import Request from 'superagent';
 import ReactModal from 'react-modal';
+import Navbar from './Navbar';
 
 const customStyles = {
   content : {
@@ -53,7 +54,6 @@ export default class Main extends React.Component {
 	}
 
 	componentDidMount(){
-		console.log('componentDidMount');
 		document.addEventListener("newMessageFromOperator", this.update, false);
 		Request.get('/api/user')
 			.then(res => {
@@ -63,6 +63,7 @@ export default class Main extends React.Component {
 					isAuthenticated: true
 				});
 			});
+
 	}
 
 	openModal(){
@@ -104,7 +105,7 @@ export default class Main extends React.Component {
 				description: newDescription
 			})
 			.then(res => {
-				// something
+				console.log('res: ', res);
 			});		
 	}
 
@@ -124,6 +125,7 @@ export default class Main extends React.Component {
 		console.log('this.state: ', this.state);
 		return (
 			<div className="container-site">
+				<Navbar {...this.state} />
 				{children}
 				<ReactModal
         			isOpen={this.state.modalOpen}

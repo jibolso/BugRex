@@ -34,6 +34,9 @@ body {
   display: block; 
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
+  background: $bg;
+  color: rgba(255, 255, 255, 0.8);
+  min-height: 800px;
 }
 
 @media (min-width: $tablet) {
@@ -46,6 +49,7 @@ body {
 .left {
   background: $bg;
   color: $body-white;
+  margin-top: 80px;
 }
 
 @media (min-width: $tablet) {
@@ -100,18 +104,41 @@ body {
 }
 
 .account-container {
-  display: block;
-  margin: 0 auto;
+  margin: 70px 40px;
+  width: 100%;
+}
+
+.account-completed-chats {
+  text-align: center;
 }
 
 .account-img {
   border-radius: 100%;
   width: 150px;
   height: 150px;
+  display: block;
+  margin: 0 auto;
 }
 
 .account-title {
   text-align: center;
+}
+
+.account-description {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  max-width: 300px;
+  height: 80px;
+  text-align: center;
+  font-size: 14px;
+  background-color: rgb(50, 54, 84);
+  color: rgba(255, 255, 255, 0.8);;
+  border: 0px;
+}
+
+.account-description:focus {
+  outline: none;
 }
 
 .company-img{
@@ -124,8 +151,9 @@ body {
 
 .featured-container {
   display: flex;
+  width:100%;
   flex-direction: row;
-  margin: 20px 40px;
+  margin: 70px 40px;
   font-size: 14px;
 }
 .featured-user {
@@ -231,10 +259,28 @@ body {
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 30px;
+  position: absolute;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.nav ul {
+  list-style-type: none;
+}
+
+.nav ul li {
+  float: left;
+  margin-right: 30px;
+  padding-top:10px;
+}
+
+.nav ul li:first-child {
+  padding-top: 0;
+}
+
+.nav li a {
+  color: rgba(white,0.8);
+  text-decoration:none;
 }
 
 .logo {
@@ -343,7 +389,7 @@ li {
     padding: 1px 10px;
     margin: 0;
     list-style: none;
-    display: inline-block;
+    display: inline;
     background-color: rgba(255,255,255,0.1);
     color: rgba(white,0.5);
     border-radius: 12px; 

@@ -1,11 +1,11 @@
-import React from "react";
+import ReactDOM from 'react-dom';
+import React from 'react';
 import Request from 'superagent';
 
 export default class Account extends React.Component {
 
 	constructor(props){
 		super(props);
-
 	}
 
 	render () {
@@ -16,19 +16,19 @@ export default class Account extends React.Component {
 		return (
 			<div className="account-container">
 				<div>
-				<form onSubmit={this.updateUserData}>
 				<h3 className="account-title">{this.props.user.username}</h3>
 				<img 
 					className="account-img"
 					src={this.props.user.profileImg}/>
 				<br/>
-				<p>Completed chats: {this.props.user.completedChats}</p>
+				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
 				<textarea
+					autoFocus
+					className="account-description"
 					ref="description"
 					defaultValue={this.props.user.description}
 					onChange={this.props.handleDescriptionChange}
 					/>
-				</form>
 				</div>
 			</div>
 		);
