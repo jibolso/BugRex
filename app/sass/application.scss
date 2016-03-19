@@ -35,7 +35,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   background: $bg;
-  color: rgba(255, 255, 255, 0.8);
   min-height: 800px;
 }
 
@@ -106,6 +105,8 @@ body {
 .account-container {
   margin: 70px 40px;
   width: 100%;
+  color: rgba(255, 255, 255, 0.8);
+
 }
 
 .account-completed-chats {
@@ -155,7 +156,9 @@ body {
   flex-direction: row;
   margin: 70px 40px;
   font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
 }
+
 .featured-user {
     flex: initial;
     width: 200px;

@@ -13,8 +13,6 @@ const getPublicUser = (request, reply) => {
 
 
 const getUser = (request, reply) => {
-    console.log('------- USER---------')
-    console.log('request.auth.isAuthenticated: ', request.auth.isAuthenticated)
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.username;
         

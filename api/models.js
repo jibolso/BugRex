@@ -158,6 +158,7 @@ const saveTranscript = (payload, reply) => {
 	        new_transcript.tags = payload.tags;
 	        new_transcript.visitor = payload.visitor;
 	        new_transcript.operators = payload.operators;
+            new_transcript.items = payload.items;
 	        new_transcript.groups = payload.groups;
 	        new_transcript.save(function(err) {
 	            if (err){
