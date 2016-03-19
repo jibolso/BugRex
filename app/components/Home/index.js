@@ -1,5 +1,7 @@
 import React from 'react';
 import Olark from '../Olark/index';
+import router from 'react-router';
+const Link = require('react-router').Link
 
 export default class Home extends React.Component {
 	constructor(){
@@ -24,9 +26,13 @@ export default class Home extends React.Component {
     	});
 	}
 	render(){
-		let authButton;
+		let authButton, account;
 		if (this.props.user) {
 			authButton = (<a href="/logout"> Logout</a>);
+			account = (<p className="route-link">
+			          	<Link to="/account">Account</Link>
+			          </p>
+			);
 		} else {
 			authButton = (<a href="/auth/github"> GitHub Login</a>);
 		}
@@ -35,6 +41,11 @@ export default class Home extends React.Component {
 	    	<div className="left-content hero">
 		        <div className="nav">
 		          <img className="logo" src="static/images/logo2@2x.png" />
+		          {account}
+		          <p className="route-link">
+		          	<Link to="/featured">Experts</Link>
+		          </p>
+
 		          <a className="becomeexpert" href="https://bugrex.typeform.com/to/Rv5TvD" target="_blank">Become an Expert</a>
 		      	</div>
 		      	<div className="hero-content">
