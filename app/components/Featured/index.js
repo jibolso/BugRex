@@ -1,6 +1,5 @@
 import React from 'react';
 import Request from 'superagent';
-
 export default class Featured extends React.Component {
 	
 	constructor(){

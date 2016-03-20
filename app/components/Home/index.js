@@ -1,6 +1,8 @@
 import React from 'react';
 import Olark from '../Olark/index';
 import router from 'react-router';
+import Footer from '../Footer';
+
 const Link = require('react-router').Link
 
 export default class Home extends React.Component {
@@ -26,13 +28,6 @@ export default class Home extends React.Component {
     	});
 	}
 	render(){
-		let authButton;
-		if (this.props.user) {
-			authButton = (<a href="/logout"> Logout</a>);
-
-		} else {
-			authButton = (<a href="/auth/github"> GitHub Login</a>);
-		}
 		return (
 		<div className="left">
 	    	<div className="left-content hero">
@@ -77,12 +72,7 @@ export default class Home extends React.Component {
 		               <a href="http://www.olark.com?utm_campaign=BugRex&utm_source=Partners"> <img className="olark" src="static/images/olark.png"/>
 		               </a>
 		              </div>
-		              <div className="footer">
-		                <a href="mailto:support@bugrex.com">Email us</a> · 
-		                <a href="/terms.html">Terms</a> · 
-		                {authButton} ·
-		                Copyright Bonito AS 2016 · Oslo,Norway
-		              </div>
+		              <Footer />
 		            </div>
 		            </div>
 		          </div>

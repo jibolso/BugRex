@@ -12,9 +12,14 @@ export default class Olark extends React.Component {
 	}
 
 	render(){
-		console.log('olark rendering, this.props:', this.props);
+		let styles = {};
+		if (this.props.showOlark === false) {
+			styles = {
+				display: 'none'
+			}
+		}
 		return (
-			<div className="right">
+			<div className="right" style={styles}>
 				<div className="live-expert-box">
 					<img 
 						className="live-expert-img" 

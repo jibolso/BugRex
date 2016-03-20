@@ -9,13 +9,6 @@ export default class Navbar extends React.Component {
 	}
 
 	render () {
-		let account;
-		if (this.props.user) {
-			account = (
-			        <Link to="/account">Account</Link>
-			);
-		}
-
 		return (
 			<div className="nav">
 				<ul>
@@ -24,9 +17,6 @@ export default class Navbar extends React.Component {
 			        	<img className="logo" src="static/images/logo2@2x.png" />
 					</Link>
 					</li>
-		          	<li>
-		          		{account}
-		          	</li>
 		          	<li>
 			          	<Link to="/featured">Experts</Link>
 		          	</li>

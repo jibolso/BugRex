@@ -4,7 +4,7 @@ import Olark from './Olark';
 import Request from 'superagent';
 import ReactModal from 'react-modal';
 import Navbar from './Navbar';
-
+import Footer from './Footer';
 const customStyles = {
   content : {
     top                   : '50%',
@@ -81,7 +81,7 @@ export default class Main extends React.Component {
 	update(){
 		let operator = getExpert();
 		console.log('operator: ', operator);
-		if (operator !== this.state.user.operator && operator !== 'Andy') {
+		if (operator !== this.state.user.operator && operator !== 'Andy' && operator !== 'INTERNAL_NOTIFICATION') {
 			Request.get('/api/user/' + operator)
 			.then(res => {
 				this.setState({
@@ -117,15 +117,14 @@ export default class Main extends React.Component {
             }));
         });
 
-		let olark;
+		let showOlark = false;
 		if (this.props.location.pathname === '/') {
-			olark = <Olark onClick={this.openModal} {...this.state} />;
-
+			showOlark = true;
 		}
-		console.log('this.state: ', this.state);
+
 		return (
 			<div className="container-site">
-				<Navbar {...this.state} />
+				<Navbar {...this.state} />			
 				{children}
 				<ReactModal
         			isOpen={this.state.modalOpen}
@@ -159,7 +158,10 @@ export default class Main extends React.Component {
 					}
 					</ul>
 				</ReactModal>
-				{olark}
+				<Olark
+					onClick={this.openModal}
+					{...this.state} 
+					showOlark={showOlark}/>
 			</div>
 		);
 	}
