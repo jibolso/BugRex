@@ -5,6 +5,7 @@ const Link = require('react-router').Link
 
 export default class Footer extends React.Component {
 	render() {
+		console.log('this: ', this);
 		let authButton,
 			account;
 		if (this.props.user) {

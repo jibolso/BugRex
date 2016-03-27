@@ -72,7 +72,7 @@ export default class Home extends React.Component {
 		               <a href="http://www.olark.com?utm_campaign=BugRex&utm_source=Partners"> <img className="olark" src="static/images/olark.png"/>
 		               </a>
 		              </div>
-		              <Footer />
+		              <Footer {...this.props} />
 		            </div>
 		            </div>
 		          </div>
