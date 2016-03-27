@@ -39,7 +39,7 @@ const githubLogin = (request, reply) => {
     const payload = request.auth.credentials;
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.profile.username;
-        models.githubLogin(username, (user) => {
+        models.githubLogin(payload, username, (user) => {
             console.log('in callback user: ', user);
             if (user === false) {
                 reply.redirect('/');

@@ -80,7 +80,7 @@ const getUser = (username, callback) => {
 	});
 }
 
-const githubLogin = (username, callback) => {
+const githubLogin = (payload, username, callback) => {
     console.log('models githubLogin');
  	User.findOne({ username: username }, function(err, user){
             console.log('looking');
@@ -104,13 +104,12 @@ const githubLogin = (username, callback) => {
                 new_user.githubUrl = payload.profile.raw.url;
                 new_user.completedChats = 0;
                 new_user.uniqueId = 'github_' + payload.profile.id;
-                request.auth.session.set(new_user);
                 new_user.save( function(err, res) {
                     if (err){
                         throw error;
                         return false;
                     }
-                    callback(user);
+                    callback(new_user);
                 });
             }
     });
