@@ -111,9 +111,9 @@ body {
 
 .featured-container {
   display: flex;
-  width:100%;
+  width: 100%;
   flex-direction: row;
-  margin: 70px 40px;
+  margin: 70px 0px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -136,6 +136,7 @@ body {
 
 .featured-description {
   text-align: center;
+  height: 50px;
 }
 
 .featured-chats {
@@ -527,7 +528,7 @@ li {
 }
 
 #habla_middle_wrapper_div {
-  height: calc( 100% - 162px );
+  height: calc( 100% - 175px );
   padding-left: 20px;
   overflow: scroll !important;
 } 

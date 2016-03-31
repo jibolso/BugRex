@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import Profile from './components/Profile';
 import Account from './components/Account';
-import Modal from './components/Modal';
 import Expert from './components/Expert';
 import Featured from './components/Featured';
 import ExpertProfile from './components/Expert/ExpertProfile';

@@ -5,10 +5,6 @@ import { browserHistory, Router, Route, IndexRoute, Link } from 'react-router'
 export default class Olark extends React.Component {
 	constructor(){
 		super();
-		this.handleClick = this.handleClick.bind(this);
-	}
-	handleClick() {
-		this.props.onClick();
 	}
 
 	render(){
@@ -31,7 +27,7 @@ export default class Olark extends React.Component {
 						className="live-expert-button"
 						type="submit"
 						value="Profile" 
-						onClick={this.handleClick}/>
+						onClick={this.props.onClick}/>
 				</div>
 				<div id="olark-box-container">
 				</div>

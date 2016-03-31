@@ -1,10 +1,11 @@
 import React from "react";
-//import { expertData, getExpert } from '../utils/olark';
 import Olark from './Olark';
 import Request from 'superagent';
 import ReactModal from 'react-modal';
+import ModalBody from './Modal/ModalBody';
 import Navbar from './Navbar';
 import Footer from './Footer';
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -46,8 +47,7 @@ export default class Main extends React.Component {
 			    username: "MrRex",
     			description: "I'm just a stupid bot that helps you connect with an expert",
 			   	email: null,
-			    name: "Per Harald Borgen",
-			    skills: ['Chatting']
+			    skills: ['Chatting', 'Talking', 'Replying']
 			},
 			modalOpen: false
 		};
@@ -121,7 +121,6 @@ export default class Main extends React.Component {
 		if (this.props.location.pathname === '/') {
 			showOlark = true;
 		}
-
 		return (
 			<div className="container-site">
 				<Navbar {...this.state} />			
@@ -131,32 +130,7 @@ export default class Main extends React.Component {
 					openModal={this.openModal}
 					onRequestClose={this.closeModal} 
 					style={customStyles}>
-					
-					<img 
-						className="modal-img"
-						src={this.state.operator.profileImg} />
-					<span className="modal-operatorname">
-						{this.state.operator.operatorname}
-					</span>
-					<br/>
-					<p>{this.state.operator.description}</p>
-					<span className="modal-completed-chats">
-						Completed chats: {this.state.operator.completedChats}
-					</span>
-
-					<ul className="modal-skills">
-					{
-						this.state.operator.skills.map((skill, index) => {
-							return(
-								<li 
-									className="modal-skill"
-									key={index}>
-									{skill}
-								</li>
-							);
-						})
-					}
-					</ul>
+					<ModalBody {...this.state.operator} />
 				</ReactModal>
 				<Olark
 					onClick={this.openModal}
