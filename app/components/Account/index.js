@@ -6,6 +6,22 @@ export default class Account extends React.Component {
 
 	constructor(props){
 		super(props);
+		this.save = this.save.bind(this);
+		this.handleInput = this.handleInput.bind(this);
+		this.state = {
+			input:''
+		}
+	}
+
+	save() {
+		const value = ReactDOM.findDOMNode(this.refs.description).value;
+		console.log('value : ', value);
+	}
+
+	handleInput(ev){
+		this.setState({
+			input: ev.target.value
+		})
 	}
 
 	render () {
@@ -22,12 +38,21 @@ export default class Account extends React.Component {
 					src={this.props.user.profileImg}/>
 				<br/>
 				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
-				<textarea
+				<div
+					ref="description"
+					contentEditable
 					autoFocus
 					className="account-description"
 					ref="description"
-					defaultValue={this.props.user.description}
-					onChange={this.props.handleDescriptionChange}
+					onInput={this.handleInput}
+					onChange={this.handleDescriptionChange}
+					>
+					{this.props.user.description}
+				</div>
+				<input
+					type="submit"
+					onClick={this.save}
+					value="Save"
 					/>
 				</div>
 			</div>

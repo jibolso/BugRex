@@ -7,18 +7,24 @@ export default class ModalBody extends React.Component {
   render() {
     return (
       <div>
-        <img 
-            className="modal-img"
-            src={this.props.profileImg} />
-            <span className="modal-operatorname">
-              {this.props.username}
-            </span>
-            <br/>
+        <div className="modal-head">
+          <div className="modal-head-left">
+          <img 
+              className="modal-img"
+              src={this.props.profileImg} />
+        </div>
+        <div className="modal-head-right">
+          <span className="modal-operatorname">
+            {this.props.username}
+          </span>
+          <br/>
+          <span className="modal-completed-chats">
+            {this.props.completedChats} chats
+          </span>
+        </div>
+        </div>
             <p>{this.props.description}</p>
-            <span className="modal-completed-chats">
-              Completed chats: {this.props.completedChats}
-            </span>
-
+            {/*
             <ul className="modal-skills">
             {
               this.props.skills.map((skill, index) => {
@@ -32,6 +38,7 @@ export default class ModalBody extends React.Component {
               })
             }
             </ul>
+            */}
         </div>
     );
   }

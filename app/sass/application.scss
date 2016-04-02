@@ -3,6 +3,7 @@ $base: 24px;
 
 $body-white: rgba(255,255,255,0.80);
 $bg: #323654;
+$grey: #5d5d5d;
 $yellow: #4cb9ff;
 $chat-bg: #f3f5fa;
 $purple: #af7dff;
@@ -95,6 +96,7 @@ body {
   background-color: rgb(50, 54, 84);
   color: rgba(255, 255, 255, 0.8);;
   border: 0px;
+  resize: none;
 }
 
 .account-description:focus {
@@ -111,15 +113,15 @@ body {
 
 .featured-container {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
   flex-direction: row;
-  margin: 70px 0px;
+  width: 90%;
+  margin: 70px auto;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
 }
 
 .featured-user {
-    flex: initial;
     width: 200px;
     margin: 20px 30px;
 }
@@ -134,6 +136,19 @@ body {
   display: block;
 }
 
+.featured-button {
+  display: block;
+  margin: 0 auto;
+  color: #d6d6dd;
+  background-color: #4c3fb5;
+  border: 0px;
+  padding: 4px 10px;
+}
+
+.featured-button:active {
+  outline: none;
+}
+
 .featured-description {
   text-align: center;
   height: 50px;
@@ -141,6 +156,7 @@ body {
 
 .featured-chats {
   text-align: center;
+  font-size: 16px;
 }
 
 .img-small {
@@ -162,29 +178,30 @@ body {
 .live-expert-box {
   height:70px;
   background-color: white;
-  padding: 15px;
+  padding: 15px 30px;
 
   .live-expert-img {
       width: 40px;
       height: 40px;
       border-radius: 20px;
-      margin-left: 30px;
       vertical-align: middle;
   }
 
   .live-expert-button {
     border-radius: 0px;
     border: 0px;
-    background-color: #9191B5;
+    background-color: $dark-bg;
     color: white;
-    padding: 7px 15px;
-    margin-right: 22px;
+    padding: 8px 16px;
     margin-top: 9px;
     float: right;
   }
 
   .live-expert-name {
     display: inline;
+    position: relative;
+    top: 3px;
+    font-size: 20px;
     margin-left: 20px;
   }
 
@@ -194,16 +211,33 @@ body {
   font-family: 'Open Sans', sans-serif;
   width: 40%;
   .modal-img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 15px;
     vertical-align: top;
   }
 
-  .modal-username {
-    font-size: 24px;
+  .modal-operatorname {
+    font-size: 22px;
     font-weight: bold;
-    margin-left: 10px
+  }
+
+  .modal-head {
+    display: flex;
+    flex-direction: row; 
+  }
+
+  .modal-head-left {
+    flex: 1;
+  }
+
+  .modal-head-right {
+    flex: 3;
+    padding-left: 12px;
+  }
+
+  .modal-completed-chats {
+    color: $grey;
   }
 
 .modal-skills {
@@ -257,6 +291,22 @@ body {
 .partners-title {
   text-align:center;
 }
+
+.transcript {
+  ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+}
+
+.MessageToOperator {
+  text-align: left;
+}
+
+.MessageToVisitor {
+  text-align: right;
+}
+
 .becomeexpert {
   color: rgba(white,0.8);
   text-decoration: none;
@@ -561,9 +611,9 @@ li {
     width: 40%;
   }
 
-  .nav {
+/*   .nav {
     width: 60%;
-  }
+  } */
 }
 
 
@@ -579,11 +629,9 @@ li {
     position: fixed;
     width: 50%;
   }
-  .hero-content {    
-    //margin-top: 17vh;
-  }
-  .nav {
+
+/*   .nav {
     width: 50%;
-  }
+  } */
 }
 

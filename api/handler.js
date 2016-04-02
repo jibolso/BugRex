@@ -11,6 +11,14 @@ const getPublicUser = (request, reply) => {
     });
 }
 
+const getTranscript = (request, reply) => {
+    console.log('getTranscript: request.params.id',request.params.id)
+    const id = request.params.id;
+    models.getTranscriptById(id, function(response){
+        console.log('will reply with response: ', response.kind);
+        reply(response);
+    });
+}
 
 const getUser = (request, reply) => {
     if (request.auth.isAuthenticated) {
@@ -40,11 +48,9 @@ const githubLogin = (request, reply) => {
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.profile.username;
         models.githubLogin(payload, username, (user) => {
-            console.log('in callback user: ', user);
             if (user === false) {
                 reply.redirect('/');
             }
-            console.log('setting session');
             request.auth.session.set(user);
             reply.redirect('/');
         });
@@ -67,6 +73,7 @@ const saveTranscript = (request, reply) => {
 module.exports = {
 	featuredUsers: featuredUsers,
     githubLogin: githubLogin,
+    getTranscript: getTranscript,
     getUser: getUser,
     getPublicUser: getPublicUser,
     logout: logout,

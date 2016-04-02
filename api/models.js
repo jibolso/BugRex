@@ -23,6 +23,7 @@ const transcriptSchema = new Schema({
     tags: Array,
     items: Array,
     visitor: Object,
+    mainOperator: String,
     operators: Object,
     group: Array
 });
@@ -63,6 +64,20 @@ const getPublicUser = (username, callback) => {
     });
 }
 
+const getTranscriptById =  (id, callback) => {
+    Transcript.findOne({id: id}, (err, transcript) => {
+        if (err) {
+            throw err;
+            callback(false);
+        }
+        if (transcript) {
+            callback(transcript);
+        } else {
+            callback(false);
+        }
+    });
+}
+
 const getUser = (username, callback) => {
 	User.findOne({ username: username }, function(err, user){
             
@@ -73,45 +88,42 @@ const getUser = (username, callback) => {
 
 		if (user) {
 		    callback(user);
-		}
-		else {
+		} else {
 		    callback(false);
 		}
 	});
 }
 
 const githubLogin = (payload, username, callback) => {
-    console.log('models githubLogin');
  	User.findOne({ username: username }, function(err, user){
-            console.log('looking');
-            if (err){
-                throw err;
-                callback(user);
-            }
+        if (err){
+            throw err;
+            callback(user);
+        }
 
-            if (user) {
-                console.log('found user: ', user);
-                callback(user);
-            }
+        if (user) {
+            console.log('found user: ', user);
+            callback(user);
+        }
 
-            else {
-                var new_user = new User();
-                new_user.name = payload.profile.displayName;
-                new_user.email = payload.profile.email;
-                new_user.username = payload.profile.username;
-                new_user.skills = [];
-                new_user.profileImg = payload.profile.raw.avatar_url;
-                new_user.githubUrl = payload.profile.raw.url;
-                new_user.completedChats = 0;
-                new_user.uniqueId = 'github_' + payload.profile.id;
-                new_user.save( function(err, res) {
-                    if (err){
-                        throw error;
-                        return false;
-                    }
-                    callback(new_user);
-                });
-            }
+        else {
+            var new_user = new User();
+            new_user.name = payload.profile.displayName;
+            new_user.email = payload.profile.email;
+            new_user.username = payload.profile.username;
+            new_user.skills = [];
+            new_user.profileImg = payload.profile.raw.avatar_url;
+            new_user.githubUrl = payload.profile.raw.url;
+            new_user.completedChats = 0;
+            new_user.uniqueId = 'github_' + payload.profile.id;
+            new_user.save( function(err, res) {
+                if (err){
+                    throw error;
+                    return false;
+                }
+                callback(new_user);
+            });
+        }
     });
 } 
 
@@ -138,7 +150,26 @@ const updateUserDescription = (username, description, callback) => {
     });    
 }
 
+function getMainOperator(operators, chatItems){
+    console.log('getMainOperator');
+    chatItems.forEach(item => {
+        if (item.kind === 'MessageToVisitor') {
+            operators[item.nickname] += 1;
+        }
+    });
+    const mainOperator = Object.keys(operators).reduce(function(a, b){ return operators[a] > operators[b] ? a : b });
+    return mainOperator;
+}
+
 const saveTranscript = (payload, reply) => {
+    console.log('saveTranscript');
+    var operators = payload.operators;
+    var operatorNames = {};
+    for (var key in operators) {
+        operatorNames[operators[key].nickname] = 0;
+    }
+    const mainOperator = getMainOperator(operatorNames, payload.items);
+    console.log('mainOperator: ', mainOperator);
 	Transcript.findOne({id: payload.id}, (err, transcript) => {
 
 	    if (err){
@@ -148,7 +179,7 @@ const saveTranscript = (payload, reply) => {
 
 	    if (transcript) {
 	        reply(false)
-	    } 
+	    }
 
 	    else {
 	        var new_transcript = new Transcript();
@@ -156,7 +187,8 @@ const saveTranscript = (payload, reply) => {
 	        new_transcript.id = payload.id;
 	        new_transcript.tags = payload.tags;
 	        new_transcript.visitor = payload.visitor;
-	        new_transcript.operators = payload.operators;
+            new_transcript.mainOperator = mainOperator;
+            new_transcript.operators = payload.operators;
             new_transcript.items = payload.items;
 	        new_transcript.groups = payload.groups;
 	        new_transcript.save(function(err) {
@@ -202,6 +234,7 @@ module.exports = {
 	saveTranscript: saveTranscript,
 	getFeaturedUsers: getFeaturedUsers,
 	getPublicUser: getPublicUser,
+    getTranscriptById: getTranscriptById,
 	getUser: getUser,
 	githubLogin: githubLogin,
 	updateUserDescription: updateUserDescription

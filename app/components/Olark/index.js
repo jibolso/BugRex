@@ -26,7 +26,7 @@ export default class Olark extends React.Component {
 					<input 
 						className="live-expert-button"
 						type="submit"
-						value="Profile" 
+						value="View Profile" 
 						onClick={this.props.onClick}/>
 				</div>
 				<div id="olark-box-container">
