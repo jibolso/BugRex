@@ -24,6 +24,7 @@ const transcriptSchema = new Schema({
     items: Array,
     visitor: Object,
     mainOperator: String,
+    published: Boolean,
     operators: Object,
     group: Array
 });
@@ -151,7 +152,6 @@ const updateUserDescription = (username, description, callback) => {
 }
 
 function getMainOperator(operators, chatItems){
-    console.log('getMainOperator');
     chatItems.forEach(item => {
         if (item.kind === 'MessageToVisitor') {
             operators[item.nickname] += 1;
@@ -162,14 +162,13 @@ function getMainOperator(operators, chatItems){
 }
 
 const saveTranscript = (payload, reply) => {
-    console.log('saveTranscript');
     var operators = payload.operators;
     var operatorNames = {};
     for (var key in operators) {
         operatorNames[operators[key].nickname] = 0;
     }
     const mainOperator = getMainOperator(operatorNames, payload.items);
-    console.log('mainOperator: ', mainOperator);
+
 	Transcript.findOne({id: payload.id}, (err, transcript) => {
 
 	    if (err){
@@ -189,6 +188,7 @@ const saveTranscript = (payload, reply) => {
 	        new_transcript.visitor = payload.visitor;
             new_transcript.mainOperator = mainOperator;
             new_transcript.operators = payload.operators;
+            new_transcript.published = false;
             new_transcript.items = payload.items;
 	        new_transcript.groups = payload.groups;
 	        new_transcript.save(function(err) {
@@ -221,7 +221,6 @@ const addChatToUser = (operatorsObject, reply) => {
                 user.completedChats = user.completedChats + 1;
                 user.markModified('completedChats');
                 user.save((err) => {
-                    console.log('SAVED COMPLETEDCHATS')
                     reply(true);
                 });
             }

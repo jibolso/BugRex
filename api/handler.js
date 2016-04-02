@@ -12,11 +12,18 @@ const getPublicUser = (request, reply) => {
 }
 
 const getTranscript = (request, reply) => {
-    console.log('getTranscript: request.params.id',request.params.id)
     const id = request.params.id;
     models.getTranscriptById(id, function(response){
-        console.log('will reply with response: ', response.kind);
-        reply(response);
+        
+        if (response === false) {
+            reply(false);
+        }
+
+        if (response.published) {
+            reply(response);
+        } else {
+            reply(false);
+        }
     });
 }
 
