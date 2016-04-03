@@ -41,9 +41,11 @@ const getFeaturedUsers = (reply) => {
 	User.find({})
         .sort({completedChats: -1})
         .exec(function(err, users){
+            
             if (err){
                 throw err;
             }
+            
             if (users) {
                 reply(users);
             } else {
@@ -54,10 +56,12 @@ const getFeaturedUsers = (reply) => {
 
 const getPublicUser = (username, callback) => {
 	User.findOne({ username: username }, function(err, user){
+        
         if (err){
             throw err;
             callback(false);
         }
+        
         if (user) {
             callback(user);
         } else {
@@ -67,11 +71,14 @@ const getPublicUser = (username, callback) => {
 }
 
 const updateTranscript = (new_transcript, callback) => {
+    console.log('models.updateTranscript');
     Transcript.findById(new_transcript._id, (err, transcript) => {
+        
         if (err){
             throw err;
             callback(false);
         }
+        
         if (transcript) {
             transcript.title = new_transcript.title;
             transcript.published = new_transcript.published;
@@ -82,6 +89,7 @@ const updateTranscript = (new_transcript, callback) => {
                     throw err;
                     callback(false);
                 }
+                console.log('saved : ', transcript);
                 callback(transcript);
             });
         } else {
@@ -92,13 +100,14 @@ const updateTranscript = (new_transcript, callback) => {
 
 const getTranscriptsByUsername = (username, callback) => {
     Transcript.find({mainOperator: username}, (err, transcripts) => {
+        
         if (err) {
             throw err;
             callback(false);
         }
 
         if (transcripts) {
-            callback(transcripts);
+            callback(transcripts.reverse());
         } else {
             callback(false);
         }
@@ -106,11 +115,14 @@ const getTranscriptsByUsername = (username, callback) => {
 }
 
 const getTranscriptById =  (id, callback) => {
+    console.log('getTranscriptById: ', getTranscriptById);
     Transcript.findOne({id: id}, (err, transcript) => {
+
         if (err) {
             throw err;
             callback(false);
         }
+
         if (transcript) {
             callback(transcript);
         } else {
@@ -137,13 +149,13 @@ const getUser = (username, callback) => {
 
 const githubLogin = (payload, username, callback) => {
  	User.findOne({ username: username }, function(err, user){
+        
         if (err){
             throw err;
             callback(user);
         }
 
         if (user) {
-            console.log('found user: ', user);
             callback(user);
         }
 

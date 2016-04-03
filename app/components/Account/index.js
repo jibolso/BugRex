@@ -33,10 +33,12 @@ export default class Account extends React.Component {
 	}
 
 	updateTranscript(transcript) {
-		console.log('updateTranscript')
+		console.log('----updateTranscript')
 		Request
 			.put('/api/transcript/' + transcript.id)
-			.send(transcript)
+			.send({
+				transcript: transcript
+			})
 			.end((err, response) => {
 				console.log('response: ', response);
 			});
@@ -57,23 +59,40 @@ export default class Account extends React.Component {
 		this.props.onDescriptionChange(ev.target.value);
 	}
 
-	handlePublishedChange(){
-
+	handleSubmit(transcript, ev) {
+		ev.preventDefault();
+		this.updateTranscript(transcript);
 	}
 
-	handleTitleChange(transcript){
-		let newState = this.state.transcripts.map(item => {
+	handlePublishedChange(transcript, ev){
+		console.log('ev; ', ev);
+		let newTranscripts = this.state.transcripts.map(item => {
 			if (transcript.id === item.id) {
-
 				return Object.assign({}, item, {
-					title: transcript.title
+					published: ev
 				});
 			} else {
 				return item;
 			}
 		});
-		console.log('newState; ', newState);
-		this.setState(newState);
+		this.setState({
+			transcripts: newTranscripts
+		});
+	}
+
+	handleTitleChange(transcript, ev){
+		let newTranscripts = this.state.transcripts.map(item => {
+			if (transcript.id === item.id) {
+				return Object.assign({}, item, {
+					title: ev.target.value
+				});
+			} else {
+				return item;
+			}
+		});
+		this.setState({
+			transcripts: newTranscripts
+		});
 	}
 
 	render () {
@@ -113,22 +132,34 @@ export default class Account extends React.Component {
 											{transcript.title}
 										</a>
 										<br/>
+										<form onSubmit={this.handleSubmit.bind(this, transcript)}>
 										<input
+											className="title-field"
 											type="text"
 											defaultValue={transcript.title}
 											onChange={this.handleTitleChange.bind(this, transcript)}
 										/>
 										<br/>
 										<input
-											type="submit"
-											value={transcript.published ? 'Unpublish' : 'Publish'}
-											onChange={this.handlePublishedChange.bind(this, transcript)}
-										/>
+											checked={transcript.published === true}
+											name="published"
+											type="radio"
+											onChange={this.handlePublishedChange.bind(this, transcript, true)}
+										/>Publish
+										<br/>
+										<input
+											checked={transcript.published === false}
+											name="published"
+											type="radio"
+											onChange={this.handlePublishedChange.bind(this, transcript, false)}
+										/>Unpublish					
+										<br/>
 										<input
 											type="submit"
 											value="Save changes"
 											onClick={this.updateTranscript.bind(this, transcript)}
 										/>
+										</form>
 									</li>
 								);
 							})

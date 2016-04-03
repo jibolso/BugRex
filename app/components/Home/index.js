@@ -2,7 +2,6 @@ import React from 'react';
 import Olark from '../Olark/index';
 import router from 'react-router';
 import Footer from '../Footer';
-
 const Link = require('react-router').Link
 
 export default class Home extends React.Component {
