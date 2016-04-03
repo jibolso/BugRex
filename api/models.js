@@ -223,11 +223,12 @@ const saveTranscript = (payload, reply) => {
 	    }
 
 	    else {
+            var date = new Date();
 	        var new_transcript = new Transcript();
 	        new_transcript.kind = payload.kind;
 	        new_transcript.id = payload.id;
 	        new_transcript.tags = payload.tags;
-            new_transcript.title = payload.id;
+            new_transcript.title = 'Chat with ' + payload.visitor.fullName + ' at ' + date;
 	        new_transcript.visitor = payload.visitor;
             new_transcript.mainOperator = mainOperator;
             new_transcript.operators = payload.operators;
