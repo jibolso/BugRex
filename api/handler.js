@@ -13,7 +13,7 @@ const getPublicUser = (request, reply) => {
 
 const getTranscript = (request, reply) => {
     const id = request.params.id;
-    models.getTranscriptById(id, function(response){
+    models.getTranscriptById(id, (response) => {
         
         if (response === false) {
             reply(false);
@@ -25,6 +25,15 @@ const getTranscript = (request, reply) => {
             reply(false);
         }
     });
+}
+
+
+const getTranscriptsByUsername = (request, reply) => {
+    const username = request.params.username;
+    models.getTranscriptsByUsername(username, response => {
+        console.log('response: ', response);
+        reply(response);
+    })
 }
 
 const getUser = (request, reply) => {
@@ -81,6 +90,7 @@ module.exports = {
 	featuredUsers: featuredUsers,
     githubLogin: githubLogin,
     getTranscript: getTranscript,
+    getTranscriptsByUsername: getTranscriptsByUsername,
     getUser: getUser,
     getPublicUser: getPublicUser,
     logout: logout,

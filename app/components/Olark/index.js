@@ -19,7 +19,7 @@ export default class Olark extends React.Component {
 				<div className="live-expert-box">
 					<img 
 						className="live-expert-img" 
-						src={this.props.operator.profileImg} />
+						src={'/' + this.props.operator.profileImg} />
 					<p className="live-expert-name">
 					{this.props.operator.username}
 					</p>

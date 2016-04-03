@@ -8,12 +8,12 @@ export default class Footer extends React.Component {
 		let authButton,
 			account;
 		if (this.props.user) {
-			authButton = (<a href="/logout"> Logout ·</a>);
+			authButton = (<a href="/logout"> Logout · </a>);
 			account = (
-			        <a href="/account">Account ·</a>
+			        <a href="/account"> Account · </a>
 			);
 		} else {
-			authButton = (<a href="/auth/github"> GitHub Login </a>);
+			authButton = (<a href="/auth/github"> GitHub Login · </a>);
 
 		}
 		return (

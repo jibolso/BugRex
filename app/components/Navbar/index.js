@@ -14,7 +14,7 @@ export default class Navbar extends React.Component {
 				<ul>
 					<li>
 					<Link to="/">
-			        	<img className="logo" src="static/images/logo2@2x.png" />
+			        	<img className="logo" src="/static/images/logo2@2x.png" />
 					</Link>
 					</li>
 		          	<li>

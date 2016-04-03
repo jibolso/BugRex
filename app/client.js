@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import Profile from './components/Profile';
 import Account from './components/Account';
-import Transcript from './components/Transcript';
+import Transcripts from './components/Transcript';
+import Transcript from './components/Transcript/Transcript';
 import Expert from './components/Expert';
 import Featured from './components/Featured';
 import ExpertProfile from './components/Expert/ExpertProfile';
@@ -18,10 +19,12 @@ var routes = (
         	<Route path="expert" component={Expert}>
         		<Route path=":expertName" component={ExpertProfile} />
         	</Route>
+            <Route path="transcript" component={Transcripts} >
+                <Route path=":transcriptId" component={Transcript} />
+            </Route>
             <Route path="featured" component={Featured}/>            
         	<Route path="login" component={Login}/>
             <Route path="account" component={Account} />
-            <Route path="transcript/:transcriptId" component={Transcript} />
         	<Route path=":username" component={Profile} />
 
         </Route>

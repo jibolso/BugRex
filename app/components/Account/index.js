@@ -1,31 +1,51 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import Request from 'superagent';
+const Link = require('react-router').Link
 
 export default class Account extends React.Component {
 
 	constructor(props){
 		super(props);
-		this.save = this.save.bind(this);
-		this.handleInput = this.handleInput.bind(this);
+		this.handleSave = this.handleSave.bind(this);
+		this.getTranscripts = this.getTranscripts.bind(this);
+		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 		this.state = {
-			input:''
+			input:'',
+			transcripts: []
 		}
 	}
 
-	save() {
-		const value = ReactDOM.findDOMNode(this.refs.description).value;
-		console.log('value : ', value);
+	getTranscripts(username){
+		Request.get('/api/transcripts/' + username)
+			.end((err, response) => {
+				if (err) {
+					throw err;
+				}
+				if (response) {
+					this.setState({
+						transcripts: response.body
+					});
+				}
+			})
 	}
 
-	handleInput(ev){
-		this.setState({
-			input: ev.target.value
-		})
+	componentWillReceiveProps(nextProps){
+		if (nextProps.user.username) {
+			this.getTranscripts(nextProps.user.username);
+		}
+	}
+
+	handleSave() {
+		this.props.onDescriptionSave();
+	}
+
+	handleDescriptionChange(ev){
+		ev.preventDefault();
+		this.props.onDescriptionChange(ev.target.value);
 	}
 
 	render () {
-		console.log('account this.props.user: ', this.props.user);
 		if (!this.props.user) {
 			return null;
 		}
@@ -38,22 +58,34 @@ export default class Account extends React.Component {
 					src={this.props.user.profileImg}/>
 				<br/>
 				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
-				<div
-					ref="description"
-					contentEditable
-					autoFocus
+				<textarea
 					className="account-description"
 					ref="description"
-					onInput={this.handleInput}
 					onChange={this.handleDescriptionChange}
-					>
-					{this.props.user.description}
-				</div>
+					value={this.props.user.description}
+					/>
 				<input
+					className="account-save-button"
 					type="submit"
-					onClick={this.save}
+					onClick={this.handleSave}
 					value="Save"
 					/>
+				</div>
+				<div>
+					<h3 style={{textAlign: 'center'}}>Transcripts</h3>
+					<ul className="account-transcript-list">
+						{
+							this.state.transcripts.map(transcript => {
+								return (
+									<li key={transcript.id}>
+										<a href={'/transcript/' + transcript.id} className="link">
+											Transcript
+										</a>
+									</li>
+								);
+							})
+						}
+					</ul>
 				</div>
 			</div>
 		);

@@ -37,6 +37,7 @@ export default class Main extends React.Component {
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+		this.handleDescriptionSave = this.handleDescriptionSave.bind(this);
 		this.state = {
 			operator: {
 				profileImg: 'static/images/dino.png',
@@ -57,7 +58,6 @@ export default class Main extends React.Component {
 		document.addEventListener("newMessageFromOperator", this.update, false);
 		Request.get('/api/user')
 			.then(res => {
-				console.log('user res: ', res);
 				this.setState({
 					user: res.body,
 					isAuthenticated: true
@@ -92,28 +92,32 @@ export default class Main extends React.Component {
 
 	}
 
-	handleDescriptionChange(ev) {
-		if (ev &&  ev.preventDefault) {
-			ev.preventDefault();
-		}
-		const newDescription = ev.target.value;
-		this.setState({
+	handleDescriptionChange(newDescription) {
+		console.log('newDescription: ', newDescription);
+		let newUser = Object.assign({}, this.state.user, {
 			description: newDescription
 		});
-		Request.put('/api/user')
-			.send({
-				description: newDescription
-			})
-			.then(res => {
-				console.log('res: ', res);
-			});		
+		this.setState({
+			user: newUser
+		});	
 	}
 
+	handleDescriptionSave() {
+		Request
+			.put('/api/user')
+			.send({
+				description: this.state.user.description
+			})
+			.end(res => {
+				// saved
+			});	
+	}
 
 	render(){
         let children = React.Children.map(this.props.children, child => {
             return React.cloneElement(child, Object.assign(this.state, {
-            	handleDescriptionChange: this.handleDescriptionChange
+            	onDescriptionChange: this.handleDescriptionChange,
+            	onDescriptionSave: this.handleDescriptionSave
             }));
         });
 

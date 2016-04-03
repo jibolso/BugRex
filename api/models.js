@@ -65,6 +65,21 @@ const getPublicUser = (username, callback) => {
     });
 }
 
+const getTranscriptsByUsername = (username, callback) => {
+    Transcript.find({mainOperator: username}, (err, transcripts) => {
+        if (err) {
+            throw err;
+            callback(false);
+        }
+
+        if (transcripts) {
+            callback(transcripts);
+        } else {
+            callback(false);
+        }
+    })
+}
+
 const getTranscriptById =  (id, callback) => {
     Transcript.findOne({id: id}, (err, transcript) => {
         if (err) {
@@ -151,7 +166,9 @@ const updateUserDescription = (username, description, callback) => {
     });    
 }
 
-function getMainOperator(operators, chatItems){
+
+
+const getMainOperator = (operators, chatItems) => {
     chatItems.forEach(item => {
         if (item.kind === 'MessageToVisitor') {
             operators[item.nickname] += 1;
@@ -234,6 +251,7 @@ module.exports = {
 	getFeaturedUsers: getFeaturedUsers,
 	getPublicUser: getPublicUser,
     getTranscriptById: getTranscriptById,
+    getTranscriptsByUsername: getTranscriptsByUsername,
 	getUser: getUser,
 	githubLogin: githubLogin,
 	updateUserDescription: updateUserDescription
