@@ -23,6 +23,7 @@ const transcriptSchema = new Schema({
     tags: Array,
     items: Array,
     visitor: Object,
+    title: String,
     mainOperator: String,
     published: Boolean,
     operators: Object,
@@ -63,6 +64,30 @@ const getPublicUser = (username, callback) => {
             callback(false);
         }
     });
+}
+
+const updateTranscript = (new_transcript, callback) => {
+    Transcript.findById(new_transcript._id, (err, transcript) => {
+        if (err){
+            throw err;
+            callback(false);
+        }
+        if (transcript) {
+            transcript.title = new_transcript.title;
+            transcript.published = new_transcript.published;
+            transcript.markModified('title');
+            transcript.markModified('description'); 
+            transcript.save(err => {
+                if (err) {
+                    throw err;
+                    callback(false);
+                }
+                callback(transcript);
+            });
+        } else {
+            callback(false);
+        }
+    })
 }
 
 const getTranscriptsByUsername = (username, callback) => {
@@ -135,7 +160,7 @@ const githubLogin = (payload, username, callback) => {
             new_user.save( function(err, res) {
                 if (err){
                     throw error;
-                    return false;
+                    callback(false);
                 }
                 callback(new_user);
             });
@@ -202,6 +227,7 @@ const saveTranscript = (payload, reply) => {
 	        new_transcript.kind = payload.kind;
 	        new_transcript.id = payload.id;
 	        new_transcript.tags = payload.tags;
+            new_transcript.title = payload.id;
 	        new_transcript.visitor = payload.visitor;
             new_transcript.mainOperator = mainOperator;
             new_transcript.operators = payload.operators;
@@ -254,6 +280,7 @@ module.exports = {
     getTranscriptsByUsername: getTranscriptsByUsername,
 	getUser: getUser,
 	githubLogin: githubLogin,
-	updateUserDescription: updateUserDescription
+	updateUserDescription: updateUserDescription,
+    updateTranscript: updateTranscript
 };
 

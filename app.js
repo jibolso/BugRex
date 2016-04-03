@@ -128,7 +128,7 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             }     
         },
         {
-            method: "GET",
+            method: ["GET", "PUT"],
             path: "/api/transcript/{id}",
             config: {
                 handler: handler.getTranscript

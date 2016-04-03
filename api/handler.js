@@ -12,26 +12,36 @@ const getPublicUser = (request, reply) => {
 }
 
 const getTranscript = (request, reply) => {
-    const id = request.params.id;
-    models.getTranscriptById(id, (response) => {
-        
-        if (response === false) {
-            reply(false);
-        }
 
-        if (response.published) {
-            reply(response);
-        } else {
-            reply(false);
-        }
-    });
+    if (request.method === 'GET') {
+        const id = request.params.id;
+        models.getTranscriptById(id, (response) => {
+        
+            if (response === false) {
+                reply(false);
+            }
+
+            if (response.published) {
+                reply(response);
+            } else {
+                reply(false);
+            }
+        });
+    }
+    else if (request.method === 'PUT') {
+        updateTranscript(request, reply);
+    }
 }
 
+const updateTranscript = (request, reply) => {
+    models.updateTranscript(transcript, (transcript) => {
+        reply(transcript);
+    });
+}
 
 const getTranscriptsByUsername = (request, reply) => {
     const username = request.params.username;
     models.getTranscriptsByUsername(username, response => {
-        console.log('response: ', response);
         reply(response);
     })
 }
