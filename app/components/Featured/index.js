@@ -68,7 +68,15 @@ export default class Featured extends React.Component {
 							src={user.profileImg} 
 							className="img-small featured-img"/>
 						<p className="featured-chats" >Chats : {user.completedChats}</p>
-						<p className="featured-description">{user.description.length > 50 ? user.description.substr(0, 50) + '...' : user.description}</p>
+						<p className="featured-description">
+						{
+							user.description ? 
+								user.description.length > 50 ? 
+									user.description.substr(0, 50) + '...'
+									: user.description
+								: ''
+
+						}</p>
 						<input
 							onClick={this.openModal.bind(this, user)}
 							type="submit"
