@@ -12,7 +12,6 @@ const getPublicUser = (request, reply) => {
 }
 
 const getTranscript = (request, reply) => {
-    console.log('getTranscript request.method: ', request.method);
     if (request.method === 'get') {
         const id = request.params.id;
         models.getTranscriptById(id, (response) => {
@@ -48,10 +47,14 @@ const getUser = (request, reply) => {
         const username = request.auth.credentials.username;
         if (request.method === 'put') {
             const description = request.payload.description;
-            models.updateUserDescription(username, description, description => {
+/*            models.updateUserDescription(username, description, description => {
                 reply({
                     description: description
                 });
+            });*/
+            console.log('request.payload: ', request.payload);
+            models.updateUser(username, request.payload, response => {
+                reply(response);
             });
 
         } else if (request.method === 'get') {

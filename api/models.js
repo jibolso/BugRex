@@ -98,6 +98,8 @@ const updateTranscript = (new_transcript, callback) => {
     })
 }
 
+
+
 const getTranscriptsByUsername = (username, callback) => {
     Transcript.find({mainOperator: username}, (err, transcripts) => {
         
@@ -146,6 +148,13 @@ const getUser = (username, callback) => {
 		}
 	});
 }
+
+const updateUser = (username, data, callback) => {
+    User.findOneAndUpdate({username: username}, data, (err, user) => {
+        callback(user);
+    });
+};
+
 
 const githubLogin = (payload, username, callback) => {
  	User.findOne({ username: username }, function(err, user){
@@ -294,6 +303,7 @@ module.exports = {
 	getUser: getUser,
 	githubLogin: githubLogin,
 	updateUserDescription: updateUserDescription,
-    updateTranscript: updateTranscript
+    updateTranscript: updateTranscript,
+    updateUser: updateUser
 };
 

@@ -5,19 +5,20 @@ const Link = require('react-router').Link
 
 export default class Account extends React.Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.handleSave = this.handleSave.bind(this);
 		this.getTranscripts = this.getTranscripts.bind(this);
 		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
+		this.handleImgChange = this.handleImgChange.bind(this);
 		this.state = {
 			input:'',
 			transcripts: []
 		}
 	}
 
-	getTranscripts(username){
+	getTranscripts(username) {
 		Request
 			.get('/api/transcripts/' + username)
 			.end((err, response) => {
@@ -33,7 +34,6 @@ export default class Account extends React.Component {
 	}
 
 	updateTranscript(transcript) {
-		console.log('----updateTranscript')
 		Request
 			.put('/api/transcript/' + transcript.id)
 			.send({
@@ -51,12 +51,12 @@ export default class Account extends React.Component {
 	}
 
 	handleSave() {
-		this.props.onDescriptionSave();
+		this.props.onUserSave();
 	}
 
-	handleDescriptionChange(ev){
+	handleDescriptionChange(ev) {
 		ev.preventDefault();
-		this.props.onDescriptionChange(ev.target.value);
+		this.props.onUserChange('description', ev.target.value);
 	}
 
 	handleSubmit(transcript, ev) {
@@ -64,8 +64,7 @@ export default class Account extends React.Component {
 		this.updateTranscript(transcript);
 	}
 
-	handlePublishedChange(transcript, ev){
-		console.log('ev; ', ev);
+	handlePublishedChange(transcript, ev) {
 		let newTranscripts = this.state.transcripts.map(item => {
 			if (transcript.id === item.id) {
 				return Object.assign({}, item, {
@@ -80,7 +79,7 @@ export default class Account extends React.Component {
 		});
 	}
 
-	handleTitleChange(transcript, ev){
+	handleTitleChange(transcript, ev) {
 		let newTranscripts = this.state.transcripts.map(item => {
 			if (transcript.id === item.id) {
 				return Object.assign({}, item, {
@@ -95,6 +94,10 @@ export default class Account extends React.Component {
 		});
 	}
 
+	handleImgChange(ev) {
+		this.props.onUserChange('profileImg', ev.target.value);
+	}
+
 	render () {
 		if (!this.props.user) {
 			return null;
@@ -107,6 +110,12 @@ export default class Account extends React.Component {
 					className="account-img"
 					src={this.props.user.profileImg}/>
 				<br/>
+				<input
+					className="account-img-input"
+					type="text"
+					value={this.props.user.profileImg}
+					onChange={this.handleImgChange}/>
+				<br/>
 				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
 				<textarea
 					className="account-description"
@@ -118,7 +127,7 @@ export default class Account extends React.Component {
 					className="account-save-button"
 					type="submit"
 					onClick={this.handleSave}
-					value="Save"
+					value="Save Account Changes"
 					/>
 				</div>
 				<div>

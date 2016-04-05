@@ -36,8 +36,8 @@ export default class Main extends React.Component {
 		this.update = this.update.bind(this);
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
-		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-		this.handleDescriptionSave = this.handleDescriptionSave.bind(this);
+		this.handleUserChange = this.handleUserChange.bind(this);
+		this.handleUserSave = this.handleUserSave.bind(this);
 		this.state = {
 			operator: {
 				profileImg: 'static/images/dino.png',
@@ -92,22 +92,19 @@ export default class Main extends React.Component {
 
 	}
 
-	handleDescriptionChange(newDescription) {
-		console.log('newDescription: ', newDescription);
+	handleUserChange(field, newValue) {
 		let newUser = Object.assign({}, this.state.user, {
-			description: newDescription
+			[field]: newValue
 		});
 		this.setState({
 			user: newUser
 		});	
 	}
 
-	handleDescriptionSave() {
+	handleUserSave() {
 		Request
 			.put('/api/user')
-			.send({
-				description: this.state.user.description
-			})
+			.send(this.state.user)
 			.end(res => {
 				// saved
 			});	
@@ -116,8 +113,8 @@ export default class Main extends React.Component {
 	render(){
         let children = React.Children.map(this.props.children, child => {
             return React.cloneElement(child, Object.assign(this.state, {
-            	onDescriptionChange: this.handleDescriptionChange,
-            	onDescriptionSave: this.handleDescriptionSave
+            	onUserChange: this.handleUserChange,
+            	onUserSave: this.handleUserSave
             }));
         });
 
