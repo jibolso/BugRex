@@ -60,14 +60,16 @@ export default class Featured extends React.Component {
 			</ReactModal>
 			{this.state.users.map((user, index) => {
 				return (
-					<div 
+					<div
+						onClick={this.openModal.bind(this, user)}
+
 						key={index} 
 						className="featured-user">
 						<h3 className="featured-title">{user.username}</h3>
 						<img 
 							src={user.profileImg} 
 							className="img-small featured-img"/>
-						<p className="featured-chats" >Chats : {user.completedChats}</p>
+						<p className="featured-chats" >{user.completedChats} chats</p>
 						<p className="featured-description">
 						{
 							user.description ? 
@@ -77,12 +79,6 @@ export default class Featured extends React.Component {
 								: ''
 
 						}</p>
-						<input
-							onClick={this.openModal.bind(this, user)}
-							type="submit"
-							className="featured-button"
-							value="Profile"
-							/>
 					</div>
 				);
 			})}

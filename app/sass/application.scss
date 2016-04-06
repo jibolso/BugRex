@@ -147,7 +147,8 @@ textarea, input { outline: none; }
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  width: 90%;
+  justify-content: center;
+  width: 100%;
   margin: 70px auto;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
@@ -156,6 +157,7 @@ textarea, input { outline: none; }
 .featured-user {
     width: 200px;
     margin: 20px 30px;
+    cursor: pointer;
 }
 
 .featured-title {
@@ -188,7 +190,13 @@ textarea, input { outline: none; }
 
 .featured-chats {
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 22px auto 0px;
+  background-color: rgba(109, 133, 253, 0.71);
+  border-radius: 15px;
+  width: 78px;
+  line-height: 18px;
 }
 
 .img-small {
