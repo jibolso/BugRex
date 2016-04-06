@@ -62,7 +62,6 @@ export default class Featured extends React.Component {
 				return (
 					<div
 						onClick={this.openModal.bind(this, user)}
-
 						key={index} 
 						className="featured-user">
 						<h3 className="featured-title">{user.username}</h3>

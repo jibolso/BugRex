@@ -110,13 +110,15 @@ export default class Account extends React.Component {
 					className="account-img"
 					src={this.props.user.profileImg}/>
 				<br/>
+				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
+				<p>Image link:</p>
 				<input
 					className="account-img-input"
 					type="text"
 					value={this.props.user.profileImg}
 					onChange={this.handleImgChange}/>
 				<br/>
-				<p className="account-completed-chats">Completed chats: {this.props.user.completedChats}</p>
+				<p>Description:</p>
 				<textarea
 					className="account-description"
 					ref="description"

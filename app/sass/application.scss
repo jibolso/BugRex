@@ -67,6 +67,9 @@ textarea, input { outline: none; }
 
 
 .account-container {
+  p {
+    text-align: center;
+  }
   margin: 70px 40px;
   width: 100%;
   color: rgba(255, 255, 255, 0.8);
