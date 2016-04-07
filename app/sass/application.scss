@@ -336,9 +336,33 @@ textarea, input { outline: none; }
 }
 
 .transcript {
+  margin-top: 70px;
+
   ul {
     list-style: none;
-    padding-left: 0px;
+    padding-left: 40px;
+    li {
+      color: $body-white;
+    }
+  }
+
+  .single-message {
+    margin: 0;
+  }
+
+  .grouped-message {
+    margin: 20px auto;
+  }
+
+  .expert-username {
+    color: $body-white;
+    text-align: center;
+  }
+
+  .expert-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
   }
 }
 

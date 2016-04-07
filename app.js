@@ -124,8 +124,12 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             method: "GET",
             path: "/api/transcripts/{username}",
             config: {
+                auth: {
+                    strategy: 'bugrex-cookie',
+                    mode: 'try'
+                },
                 handler: handler.getTranscriptsByUsername
-            }     
+            }
         },
         {
             method: ["GET", "PUT"],

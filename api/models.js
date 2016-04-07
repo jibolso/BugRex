@@ -117,7 +117,6 @@ const getTranscriptsByUsername = (username, callback) => {
 }
 
 const getTranscriptById =  (id, callback) => {
-    console.log('getTranscriptById: ', getTranscriptById);
     Transcript.findOne({id: id}, (err, transcript) => {
 
         if (err) {
