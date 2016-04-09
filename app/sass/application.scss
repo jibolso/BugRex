@@ -343,8 +343,13 @@ textarea, input { outline: none; }
   display:block;
   margin:0 auto;
 }
+
+.partners {
+  margin-top: 60px;
+}
 .partners-title {
   text-align:center;
+
 }
 
 .transcript {
@@ -550,6 +555,10 @@ li {
 
 .link {
   color: $yellow;
+}
+
+.white-link {
+  color: $body-white;
 }
 
 .route-link {

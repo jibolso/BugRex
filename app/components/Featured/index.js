@@ -86,7 +86,7 @@ export default class Featured extends React.Component {
 					);
 				})}
 				</div>
-				<Footer />
+				<Footer {...this.props} />
 			</div>
 		);
 	}
