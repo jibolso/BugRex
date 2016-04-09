@@ -9,6 +9,10 @@ export default class Navbar extends React.Component {
 	}
 
 	render () {
+		let becomeExpert;
+		if (!this.props.user) {
+			becomeExpert = <a href="https://bugrex.typeform.com/to/Rv5TvD">Become an expert</a>
+		}
 		return (
 			<div className="nav">
 				<ul>
@@ -21,7 +25,7 @@ export default class Navbar extends React.Component {
 			          	<Link to="/featured">Experts</Link>
 		          	</li>
 		          	<li>
-			          <a href="https://bugrex.typeform.com/to/Rv5TvD">Become an expert</a>
+		          		{becomeExpert}
 		      		</li>
 		      	</ul>
 	      	</div>

@@ -27,6 +27,7 @@ html {
 body {
   margin: 0;
   background-color: $bg;
+  color: $body-white;
 
 }
 
@@ -151,20 +152,30 @@ textarea, input { outline: none; }
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
-  margin: 70px auto;
+  width: 90%;
+  margin: 0px auto;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
 }
 
+.featured-container-title {
+  text-align: center;
+  font-size: 18px;
+  margin: 110px 0px 25px 0
+
+}
+
 .featured-user {
-    width: 200px;
-    margin: 20px 30px;
+    width: 20%;
+    padding: 20px 30px;
+    margin: 0 0 40px 0;
     cursor: pointer;
 }
 
 .featured-title {
+  font-size: 16px;
   text-align: center;
+  margin: 8px 0 8px 0;
 }
 
 .featured-img {
@@ -192,15 +203,13 @@ textarea, input { outline: none; }
 }
 
 .featured-chats {
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  margin: 22px auto 0px;
-  background-color: rgba(109, 133, 253, 0.71);
-  border-radius: 15px;
-  width: 78px;
-  line-height: 18px;
-}
+    text-align: center;
+    font-size: 14px;
+    margin: 0 auto 0px;
+    width: 78px;
+    line-height: 18px;
+    font-weight: 100;
+  }
 
 .img-small {
   width: 100px;
@@ -211,6 +220,7 @@ textarea, input { outline: none; }
   max-width: 700px;
   padding-right: 20px;
   padding-left: 20px;
+  padding-top: 50px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -219,15 +229,16 @@ textarea, input { outline: none; }
 
 
 .live-expert-box {
+  color: black;
   height:70px;
   background-color: white;
   padding: 15px 30px;
 
   .live-expert-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    vertical-align: middle;
   }
 
   .live-expert-button {
@@ -253,6 +264,7 @@ textarea, input { outline: none; }
 .ReactModal__Content {
   font-family: 'Open Sans', sans-serif;
   width: 40%;
+  color: black;
   .modal-img {
     width: 90px;
     height: 90px;
@@ -519,7 +531,6 @@ li {
 .faq-section {
   margin-top: 65px;
   background: $dark-bg;
-  padding-top: 50px;
   padding-bottom: 100px;
 }
 
@@ -550,6 +561,10 @@ li {
 
 }
 
+
+.sub-title {
+  margin-top: 70px;
+}
 
 //Olark
 
@@ -639,7 +654,6 @@ li {
 }
 
 
-
 #habla_middle_div {
   height: 100vh;
 }
@@ -661,7 +675,6 @@ li {
 
 .olark_avatar {
   border-radius: 100%;
-
 }
 
 
@@ -669,7 +682,6 @@ li {
 @media (min-width: $desktop) {
   .hero-content {
     height: 40vh;
-//    margin-top: 14vh;
   }
   .left {
     width: 60%;  
@@ -677,10 +689,6 @@ li {
   .right {
     width: 40%;
   }
-
-/*   .nav {
-    width: 60%;
-  } */
 }
 
 
@@ -689,16 +697,12 @@ li {
     display: flex;
   }
   .left {
-    width: 50%; 
+    width: 60%; 
     margin-top: 80px;
   }
   .right {
     position: fixed;
-    width: 50%;
+    width: 40%;
   }
-
-/*   .nav {
-    width: 50%;
-  } */
 }
 

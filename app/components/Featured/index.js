@@ -2,7 +2,7 @@ import React from 'react';
 import Request from 'superagent';
 import ReactModal from 'react-modal';
 import ModalBody from '../Modal/ModalBody';
-
+import Footer from '../Footer';
 const customStyles = {
   content : {
     top                   : '50%',
@@ -50,37 +50,43 @@ export default class Featured extends React.Component {
 	
 	render() {
 		return (
-			<div className="featured-container">
-			<ReactModal
-    			isOpen={this.state.modalOpen}
-				openModal={this.openModal}
-				onRequestClose={this.closeModal} 
-				style={customStyles} >
-				<ModalBody {...this.state.modalData} />
-			</ReactModal>
-			{this.state.users.map((user, index) => {
-				return (
-					<div
-						onClick={this.openModal.bind(this, user)}
-						key={index} 
-						className="featured-user">
-						<h3 className="featured-title">{user.username}</h3>
-						<img 
-							src={user.profileImg} 
-							className="img-small featured-img"/>
-						<p className="featured-chats" >{user.completedChats} chats</p>
-						<p className="featured-description">
-						{
-							user.description ? 
-								user.description.length > 50 ? 
-									user.description.substr(0, 50) + '...'
-									: user.description
-								: ''
+			<div>
+				<p className="featured-container-title">Experts with most chats</p>
+				<div className="featured-container">
+				<ReactModal
+	    			isOpen={this.state.modalOpen}
+					openModal={this.openModal}
+					onRequestClose={this.closeModal} 
+					style={customStyles} >
+					<ModalBody {...this.state.modalData} />
+				</ReactModal>
+				{this.state.users.map((user, index) => {
+					return (
+						<div
+							onClick={this.openModal.bind(this, user)}
+							key={index} 
+							className="featured-user">
+							<img 
+								src={user.profileImg} 
+								className="img-small featured-img"/>
+							<h4 className="featured-title">{index + 1}. {user.username}</h4>
+							<p className="featured-chats" >{user.completedChats} chats</p>
+							{/*<p className="featured-description">
+							
+								user.description ? 
+									user.description.length > 35 ? 
+										user.description.substr(0, 35) + '...'
+										: user.description
+									: ''
 
-						}</p>
-					</div>
-				);
-			})}
+							
+							</p>
+							*/}
+						</div>
+					);
+				})}
+				</div>
+				<Footer />
 			</div>
 		);
 	}

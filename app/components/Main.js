@@ -43,10 +43,10 @@ export default class Main extends React.Component {
 				profileImg: 'static/images/dino.png',
 				name: 'Per Harald Borgen',
 				uniqueId: "github_2429547",
-			    completedChats: 16,
+			    completedChats: 316,
 			    githubUrl: "https://api.github.com/users/perborgen",
 			    username: "MrRex",
-    			description: "I'm just a stupid bot that helps you connect with an expert",
+    			description: "Hi, I'm the bot here at BugRex. I'll help you connect with a real expert. Please answer my questions as specifically as you can, and I'll try to find a perfect developer for your problems. Thanks!",
 			   	email: null,
 			    skills: ['Chatting', 'Talking', 'Replying']
 			},
@@ -80,7 +80,6 @@ export default class Main extends React.Component {
 
 	update(){
 		let operator = getExpert();
-		console.log('operator: ', operator);
 		if (operator !== this.state.user.operator && operator !== 'Andy' && operator !== 'INTERNAL_NOTIFICATION') {
 			Request.get('/api/user/' + operator)
 			.then(res => {

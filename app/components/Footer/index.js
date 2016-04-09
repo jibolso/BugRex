@@ -8,18 +8,15 @@ export default class Footer extends React.Component {
 		let authButton,
 			account;
 		if (this.props.user) {
-			authButton = (<a href="/logout"> Logout · </a>);
-			account = (
-			        <a href="/account"> Account · </a>
-			);
+			authButton = (<span> <a href="/logout">Logout</a> · </span>);
+			account = (<span> <a href="/account">Account</a> · </span>);
 		} else {
-			authButton = (<a href="/auth/github"> GitHub Login · </a>);
-
+			authButton = (<span> <a href="/auth/github">GitHub Login</a> · </span>);
 		}
 		return (
 			<div className="footer">
                 <a href="mailto:support@bugrex.com">Email us</a> · 
-                <a href="/terms.html">Terms</a> · 
+                <a href="/terms.html"> Terms</a> · 
                 {authButton}
                 {account} 
                 Copyright Bonito AS 2016 · Oslo, Norway

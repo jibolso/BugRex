@@ -37,7 +37,7 @@ export default class Home extends React.Component {
 			    </div>
 			    <div className="faq-section">
 					<div className="left-content">
-						<h2>WHAT WE CAN HELP YOU WITH</h2>          
+						<h2 className="sub-title">WHAT WE CAN HELP YOU WITH</h2>          
 						<ul className="coding-icons">
 				            <li>HTML/CSS</li>
 				            <li>JavaScript</li>
@@ -46,9 +46,12 @@ export default class Home extends React.Component {
 				            <li>jQuery</li>
 				            <li>React.js</li>
 		          		</ul>
-		          		<h2>HOW IT WORKS</h2>
-						<p className="how-it-works-body">Googling to solve a problem is a not always the easiest. Sometimes it's really nice to be able to instantly talk to a real person about your problems. Whether that is to ask the newbie questions you don't dare to ask other places, let an expert teach you something you don't fully understand, or let the expert help you fix annoying bugs. We recommend you try the chat, and experience what it's like.</p>
-						<h2 className="faq">FAQ</h2>
+		          		<h2 className="sub-title">HOW IT WORKS</h2>
+							<p>Simply type something into the chat form to get started. Our bot will ask you a couple of questions to make sure we'll connect you with an expert with the right skills to help you.</p>
+						<h2 className="sub-title">WHY BUGREX?</h2>
+							<p>Googling to solve problems is a not always the easiest. Sometimes it's better to instantly talk to a <a className="link" href="/featured">real developer.</a></p>
+							<p>Whether that is to ask newbie questions, let an expert teach you something you don't understand, or get help to fix annoying bugs.</p>
+						<h2 className="faq sub-title">FAQ</h2>
 						<ol>
 							<li>I can't see the chat?</li>
 							<p>The chat is supposed to be on the right on desktop/tablet and on the very bottom on mobile. If it's not, something is wrong. The best suggestion is to disable your ad blocker. We're currently using Olarks excellent chat-service, but reports say it doesn't work with ad blockers enabled. If disabling ad blockers doesn't fix it, try another browser. If that doesn't fix it, we're happy if you send us an email to <a className="link" href="mailto:support@bugrex.com">support@bugrex.com</a></p>

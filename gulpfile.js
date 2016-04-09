@@ -36,6 +36,11 @@ gulp.task('sass', function(){
           .pipe(gulp.dest('./public/css'))
 });
 
+gulp.task('watchSass', function(){
+  gulp.watch('./app/sass/application.scss', ['sass']);
+});
+
+
 gulp.task('watch', function(){
   gulp.watch(['./app/components/*/*js', './app/components/*.js', './app/utils/*.js'], ['build']);
 });
@@ -46,4 +51,4 @@ gulp.task('runServer', function(){
 
 gulp.task('default', ['build', 'sass']);
 
-gulp.task('dev', ['build', 'sass', 'runServer', 'watch']);
+gulp.task('dev', ['build', 'sass', 'runServer', 'watch', 'watchSass']);
