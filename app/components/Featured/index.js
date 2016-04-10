@@ -50,7 +50,7 @@ export default class Featured extends React.Component {
 	
 	render() {
 		return (
-			<div>
+			<div style={{width: '100%'}}>
 				<p className="featured-container-title">Experts with most chats</p>
 				<div className="featured-container">
 				<ReactModal
