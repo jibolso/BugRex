@@ -15,6 +15,7 @@
     "bell": "^6.0.0",
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-sass": "^2.2.0",
     "hapi": "^13.0.0",
     "hapi-auth-cookie": "^3.1.0",

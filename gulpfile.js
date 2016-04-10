@@ -3,6 +3,7 @@ var sass       = require('gulp-sass');
 var babelify   = require('babelify');
 var browserify = require('browserify');
 var fs         = require('fs');
+var autoprefixer = require('gulp-autoprefixer');
 
 var build = function () {
   var timer_name = "Build complete";
@@ -33,6 +34,7 @@ gulp.task("heroku:production", function(){
 gulp.task('sass', function(){
   return gulp.src('./app/sass/application.scss')
           .pipe(sass().on('error', sass.logError))
+          .pipe(autoprefixer())
           .pipe(gulp.dest('./public/css'))
 });
 
