@@ -17,8 +17,8 @@ export default class Transcript extends React.Component {
 	}
 
 	componentDidMount() {
-		const transcriptId = this.props.params.transcriptId;
-		Request.get('/api/transcript/' + transcriptId)
+		const transcriptTitle = this.props.params.transcriptTitle;
+		Request.get('/api/transcript/title/' + transcriptTitle)
 			.end((err, res) => {
 				this.setState({
 					transcript: res.body,
@@ -43,16 +43,18 @@ export default class Transcript extends React.Component {
 		if (!this.state.ready) {
 			return null;
 		}
-		let expert;
-		let previousKind;
-		let splitter;
-		let messages;
+		let expert,
+			title,
+			previousKind,
+			splitter,
+			messages,
+			allGroupedMessages = [],
+			messageGroup = [];
 
-		let allGroupedMessages = [];
-		let messageGroup = [];
-		if (this.state.transcript.items) {
+		if (this.state.transcript) {
 			messages = this.state.transcript.items.map((item, index) => {
 				if (index === 0) previousKind = item.kind;
+/*				
 				if (previousKind !== item.kind) {
 						allGroupedMessages.push(messageGroup);
 						messageGroup = [];
@@ -60,27 +62,26 @@ export default class Transcript extends React.Component {
 						splitter = <br/>;
 					} else {
 						splitter = null;
-						console.log()
 						messageGroup.push(item);
 					}
-
 				
 				previousKind = item.kind;
+*/				
+				const kind = item.kind === 'MessageToOperator' ? 'visitor': 'operator'
 				return (
-					<div key={index}>
-						{splitter}
-						<div className="message">
-							<li>
-								{item.body}
-							</li>
-						</div>
-					</div>
+					<tr key={index} className={'message-' + kind}>
+						<td className="nickname">{kind === 'visitor' ? 'Visitor' : item.nickname}: </td>
+						<td className="body">
+							{item.body}
+						</td>
+					</tr>
 				);
 			});
 		}
-		console.log('allGroupedMessages: ', allGroupedMessages);
+
 		if (this.state.transcript && this.state.transcript.mainOperator) {
 			expert = this.state.transcript.mainOperator;
+			title = this.state.transcript.title;
 		}
 
 		let allGroupedMessagesHTML = allGroupedMessages.map(groupedMessage => {
@@ -103,14 +104,17 @@ export default class Transcript extends React.Component {
 		});
 
 		return (
-			<div className="transcript">
-				<div>
-					<h3 className="expert-username">{expert}</h3>
-					<img className="expert-img" src={this.state.expert.profileImg} />
+			<div>
+				<div className="transcript-header">
+					<h3 className="operator-username">{expert}</h3>
+					<img className="operator-img" src={this.state.expert.profileImg} />
+					<h2 className="transcript-title">{title}</h2>
 				</div>
-           		<ul>
-           			{allGroupedMessagesHTML}
-           		</ul>
+           		<table cellSpacing="0">
+           			<tbody>
+           			{messages}
+           			</tbody>
+           		</table>
             </div>
         );
 	}

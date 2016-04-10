@@ -20,7 +20,7 @@ var routes = (
         		<Route path=":expertName" component={ExpertProfile} />
         	</Route>
             <Route path="transcript" component={Transcripts} >
-                <Route path=":transcriptId" component={Transcript} />
+                <Route path=":transcriptTitle" component={Transcript} />
             </Route>
             <Route path="featured" component={Featured}/>            
         	<Route path="login" component={Login}/>

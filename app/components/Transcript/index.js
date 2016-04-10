@@ -1,10 +1,10 @@
 import React from 'react';
 import Request from 'superagent';
 
-export default class Transcript extends React.Component {
+export default class Transcripts extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="transcript">
 				{this.props.children}
 			</div>
 		);

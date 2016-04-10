@@ -12,10 +12,10 @@ const getPublicUser = (request, reply) => {
 }
 
 const getTranscript = (request, reply) => {
+    const id = request.params.id;
     if (request.method === 'get') {
-        const id = request.params.id;
         models.getTranscriptById(id, (response) => {
-            
+            console.log('getTranscript: ', response);
             if (response === false) {
                 reply(false);
             }
@@ -30,9 +30,21 @@ const getTranscript = (request, reply) => {
     else if (request.method === 'put') {
         const transcript = request.payload.transcript;
         models.updateTranscript(transcript, response => {
+            console.log('new transcript: ', response);
             reply(response);
-        });    
+        });
+    } else if (request.method === 'delete') {
+        models.deleteTranscriptById(id, response => {
+            reply(response);
+        });
     }
+}
+
+const getTranscriptByTitle = (request, reply) => {
+    const transcriptTitle = request.params.transcriptTitle.split('-').join(' ');
+    models.getTranscriptByTitle(transcriptTitle, response => {
+        reply(response);
+    });
 }
 
 const getTranscriptsByUsername = (request, reply) => {
@@ -42,17 +54,16 @@ const getTranscriptsByUsername = (request, reply) => {
     })
 }
 
+const bulk = (request, reply) => {
+    // for bulk updating titles
+    //models.bulk(request, reply);
+}
+
 const getUser = (request, reply) => {
     if (request.auth.isAuthenticated) {
         const username = request.auth.credentials.username;
         if (request.method === 'put') {
             const description = request.payload.description;
-/*            models.updateUserDescription(username, description, description => {
-                reply({
-                    description: description
-                });
-            });*/
-            console.log('request.payload: ', request.payload);
             models.updateUser(username, request.payload, response => {
                 reply(response);
             });
@@ -96,9 +107,11 @@ const saveTranscript = (request, reply) => {
 }
 
 module.exports = {
+    bulk: bulk,
 	featuredUsers: featuredUsers,
     githubLogin: githubLogin,
     getTranscript: getTranscript,
+    getTranscriptByTitle: getTranscriptByTitle,
     getTranscriptsByUsername: getTranscriptsByUsername,
     getUser: getUser,
     getPublicUser: getPublicUser,

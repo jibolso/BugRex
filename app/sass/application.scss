@@ -3,6 +3,7 @@ $base: 24px;
 
 $body-white: rgba(255,255,255,0.80);
 $bg: #323654;
+$darkText: #383c3d;
 $grey: #5d5d5d;
 $yellow: #4cb9ff;
 $chat-bg: #f3f5fa;
@@ -10,7 +11,8 @@ $purple: #af7dff;
 $dark-bg: #23263b;
 $green: #a5d600;
 $pink: #ce2672;
-
+$dino: #af7dff;
+$dinoBlue: #6d85fd;
 $tablet: 800px;
 $desktop: 1000px;
 
@@ -82,6 +84,7 @@ textarea, input { outline: none; }
   text-align: center;
 }
 
+
 .account-img {
   border-radius: 100%;
   width: 150px;
@@ -133,9 +136,16 @@ textarea, input { outline: none; }
     text-align: center;
     font-size: 16;
   }
+  .unpublished {
+    opacity: 0.5;
+  }
 
   .title-field {
     width: 300px;
+  }
+
+  .edit {
+    color: white;
   }
 }
 
@@ -353,15 +363,54 @@ textarea, input { outline: none; }
 }
 
 .transcript {
-  margin-top: 70px;
+  margin: 70px 0px;
+  color: $darkText;
+  flex: 1;
 
-  ul {
-    list-style: none;
-    padding-left: 40px;
-    li {
-      color: $body-white;
+.message-visitor {
+  text-align: left;
+  background-color: #f9fafa;
+
+}
+
+.message-operator {
+  background-color: white;
+
+  .nickname {
+    color: $dinoBlue;
+  }
+}
+  table {
+    width: 100%;
+  }
+
+  tr {
+    height: 45px;
+    
+    .operator {
+      color: blue;
     }
   }
+
+
+  .nickname {
+    max-width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 30px;
+    min-width: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-weight: 700;
+  }
+
+
+
+  .message-body {
+    
+  }
+
 
   .single-message {
     margin: 0;
@@ -371,25 +420,30 @@ textarea, input { outline: none; }
     margin: 20px auto;
   }
 
-  .expert-username {
+  .transcript-header {
+    margin-bottom: 30px;
+  }
+
+  .transcript-title {
+    text-align: center;
+    color: $body-white; 
+  }
+
+
+  .operator-username {
     color: $body-white;
     text-align: center;
   }
 
-  .expert-img {
+  .operator-img {
     width: 100px;
     height: 100px;
     border-radius: 100%;
+    display: block;
+    margin: 0 auto;
   }
 }
 
-.MessageToOperator {
-  text-align: left;
-}
-
-.MessageToVisitor {
-  text-align: right;
-}
 
 .becomeexpert {
   color: rgba(white,0.8);
@@ -703,7 +757,7 @@ li {
 
 @media (min-width: $tablet) {
   .container-site {
-    display: flex;
+    display:flex;
   }
   .left {
     width: 60%; 
@@ -712,6 +766,9 @@ li {
   .right {
     position: fixed;
     width: 40%;
+  }
+  .transcript {
+    padding: 0 100px;
   }
 }
 

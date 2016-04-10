@@ -85,6 +85,14 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
         },
         {
             method: 'GET',
+            path: '/bulk',
+            config: {
+                auth: false,
+                handler: handler.bulk
+            }
+        },        
+        {
+            method: 'GET',
             path: '/logout',
             config: {
                 auth: false,
@@ -132,10 +140,17 @@ server.register([inert, bell, hapiAuthCookie], (err) => {
             }
         },
         {
-            method: ["GET", "PUT"],
+            method: ["GET", "PUT", "DELETE"],
             path: "/api/transcript/{id}",
             config: {
                 handler: handler.getTranscript
+            }     
+        },
+        {
+            method: "GET",
+            path: "/api/transcript/title/{transcriptTitle}",
+            config: {
+                handler: handler.getTranscriptByTitle
             }     
         },
         {

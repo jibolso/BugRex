@@ -71,7 +71,7 @@ const getPublicUser = (username, callback) => {
 }
 
 const updateTranscript = (new_transcript, callback) => {
-    console.log('models.updateTranscript');
+    console.log('updateTranscript');
     Transcript.findById(new_transcript._id, (err, transcript) => {
         
         if (err){
@@ -89,7 +89,6 @@ const updateTranscript = (new_transcript, callback) => {
                     throw err;
                     callback(false);
                 }
-                console.log('saved : ', transcript);
                 callback(transcript);
             });
         } else {
@@ -97,8 +96,6 @@ const updateTranscript = (new_transcript, callback) => {
         }
     })
 }
-
-
 
 const getTranscriptsByUsername = (username, callback) => {
     Transcript.find({mainOperator: username}, (err, transcripts) => {
@@ -116,7 +113,24 @@ const getTranscriptsByUsername = (username, callback) => {
     })
 }
 
+
+const getTranscriptByTitle = (title, callback) => {
+    Transcript.findOne({title: title}, (err, transcript) => {
+        if (err) {
+            throw err;
+            callback(false);
+        }
+
+        if (transcript && transcript.published) {
+                callback(transcript);
+        } else {
+            callback(false);
+        }
+    })
+}
+
 const getTranscriptById =  (id, callback) => {
+    // uses Olark transcript Id, not mongodb id
     Transcript.findOne({id: id}, (err, transcript) => {
 
         if (err) {
@@ -131,6 +145,19 @@ const getTranscriptById =  (id, callback) => {
         }
     });
 }
+
+
+const deleteTranscriptById = (id, callback) => {
+    // uses Olark transcript Id, not mongodb id
+    Transcript.findOneAndRemove({id: id}, (err) => {
+        if (!err) {
+            callback(true);
+        } else {
+            callback(false);
+        }
+    }); 
+}
+
 
 const getUser = (username, callback) => {
 	User.findOne({ username: username }, function(err, user){
@@ -223,6 +250,29 @@ const getMainOperator = (operators, chatItems) => {
     return mainOperator;
 }
 
+const bulk = (request, reply) => {
+    Transcript.find({}, (err, transcripts) => {
+        console.log('transcripts.length', transcripts.length);
+        transcripts.forEach(t => {
+            Transcript.findById(t._id, (err, tr) => {
+                if (err){
+                    throw err;
+                } else {
+                    tr.title = 'Chat with ' + tr.visitor.country + ' ' + tr.id;
+                    tr.markModified('title');
+                    tr.save(function(err) {
+                        if (err) {
+                            console.log('err: ', err);
+                        } else {
+                            console.log('saved!');
+                        }
+                    });
+                }
+            });
+        });
+    });
+}
+
 const saveTranscript = (payload, reply) => {
     var operators = payload.operators;
     var operatorNames = {};
@@ -243,12 +293,11 @@ const saveTranscript = (payload, reply) => {
 	    }
 
 	    else {
-            var date = new Date();
 	        var new_transcript = new Transcript();
 	        new_transcript.kind = payload.kind;
 	        new_transcript.id = payload.id;
 	        new_transcript.tags = payload.tags;
-            new_transcript.title = 'Chat with ' + payload.visitor.fullName + ' at ' + date;
+            new_transcript.title = 'Chat with ' + payload.visitor.country + ' ' + payload.id;
 	        new_transcript.visitor = payload.visitor;
             new_transcript.mainOperator = mainOperator;
             new_transcript.operators = payload.operators;
@@ -294,10 +343,13 @@ const addChatToUser = (operatorsObject, reply) => {
 
 
 module.exports = {
+    bulk: bulk,
+    deleteTranscriptById: deleteTranscriptById,
 	saveTranscript: saveTranscript,
 	getFeaturedUsers: getFeaturedUsers,
 	getPublicUser: getPublicUser,
     getTranscriptById: getTranscriptById,
+    getTranscriptByTitle: getTranscriptByTitle,
     getTranscriptsByUsername: getTranscriptsByUsername,
 	getUser: getUser,
 	githubLogin: githubLogin,

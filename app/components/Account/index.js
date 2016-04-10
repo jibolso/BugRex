@@ -26,23 +26,17 @@ export default class Account extends React.Component {
 					throw err;
 				}
 				if (response) {
+					let transcripts = response.body.map(transcript => {
+						transcript.isEditing = false;
+						return transcript;
+					})
 					this.setState({
-						transcripts: response.body
+						transcripts: transcripts
 					});
 				}
 			})
 	}
 
-	updateTranscript(transcript) {
-		Request
-			.put('/api/transcript/' + transcript.id)
-			.send({
-				transcript: transcript
-			})
-			.end((err, response) => {
-				console.log('response: ', response);
-			});
-	}
 
 	componentWillReceiveProps(nextProps){
 		if (nextProps.user.username) {
@@ -59,9 +53,38 @@ export default class Account extends React.Component {
 		this.props.onUserChange('description', ev.target.value);
 	}
 
-	handleSubmit(transcript, ev) {
-		ev.preventDefault();
-		this.updateTranscript(transcript);
+	handleSaveTranscript(transcript, ev) {
+		console.log('handleSaveTranscript');
+		if (ev && ev.preventDefault) {
+			ev.preventDefault();
+		}
+		Request
+			.put('/api/transcript/' + transcript.id)
+			.send({
+				transcript: transcript
+			})
+			.end((err, response) => {
+				this.toggleEdit(transcript);
+			});
+	}
+
+	handleDeleteTranscript(transcript, ev) {
+		if (ev && ev.preventDefault) {
+			ev.preventDefault();
+		}
+		Request
+			.delete('/api/transcript/' + transcript.id)
+			.send({
+				transcript: transcript
+			})
+			.end((err, response) => {
+				const newTranscripts = this.state.transcripts.filter(t => {
+					return t.id !== transcript.id;
+				});
+				this.setState({
+					transcripts: newTranscripts
+				});
+			});
 	}
 
 	handlePublishedChange(transcript, ev) {
@@ -79,8 +102,19 @@ export default class Account extends React.Component {
 		});
 	}
 
+	isValid(str) {
+		return /^[a-zA-Z0-9\s]*$/.test(str);
+	}
+
 	handleTitleChange(transcript, ev) {
-		let newTranscripts = this.state.transcripts.map(item => {
+		if (ev && ev.preventDefault) {
+			ev.preventDefault();
+		}
+		const isValid = this.isValid(ev.target.value);
+		if (!isValid) {
+			return false;
+		}
+		const newTranscripts = this.state.transcripts.map((item, index) => {
 			if (transcript.id === item.id) {
 				return Object.assign({}, item, {
 					title: ev.target.value
@@ -92,6 +126,23 @@ export default class Account extends React.Component {
 		this.setState({
 			transcripts: newTranscripts
 		});
+	}
+
+	toggleEdit(transcript, ev){
+		if (ev && ev.preventDefault) {
+			ev.preventDefault();
+		}		
+		const newTranscripts = this.state.transcripts.map(t => {
+			if (t.id === transcript.id) {
+				return Object.assign({}, t, {
+					isEditing: !t.isEditing
+				});
+			}
+			return t;
+		});
+		this.setState({
+			transcripts: newTranscripts
+		})
 	}
 
 	handleImgChange(ev) {
@@ -123,56 +174,72 @@ export default class Account extends React.Component {
 					className="account-description"
 					ref="description"
 					onChange={this.handleDescriptionChange}
-					value={this.props.user.description}
-					/>
+					value={this.props.user.description} />
 				<input
 					className="account-save-button"
 					type="submit"
 					onClick={this.handleSave}
-					value="Save Account Changes"
-					/>
+					value="Save Account Changes" />
 				</div>
 				<div>
 					<h3 style={{textAlign: 'center'}}>Transcripts</h3>
 					<ul className="account-transcript-list">
 						{
-							this.state.transcripts.map(transcript => {
-								return (
-									<li key={transcript.id}>
-										<a href={'/transcript/' + transcript.id} className="link">
-											{transcript.title}
-										</a>
-										<br/>
-										<form onSubmit={this.handleSubmit.bind(this, transcript)}>
-										<input
-											className="title-field"
-											type="text"
-											defaultValue={transcript.title}
-											onChange={this.handleTitleChange.bind(this, transcript)}
-										/>
-										<br/>
-										<input
-											checked={transcript.published === true}
-											name="published"
-											type="radio"
-											onChange={this.handlePublishedChange.bind(this, transcript, true)}
-										/>Publish
-										<br/>
-										<input
-											checked={transcript.published === false}
-											name="published"
-											type="radio"
-											onChange={this.handlePublishedChange.bind(this, transcript, false)}
-										/>Unpublish					
-										<br/>
-										<input
-											type="submit"
-											value="Save changes"
-											onClick={this.updateTranscript.bind(this, transcript)}
-										/>
-										</form>
-									</li>
-								);
+							this.state.transcripts.map((transcript, index) => {
+								if (transcript.title) {
+									if (transcript.isEditing) {
+										return (
+											<li key={transcript.id}>
+												<form>
+													<input
+														className="title-field"
+														type="text"
+														value={transcript.title}
+														onChange={this.handleTitleChange.bind(this, transcript)}
+													/>
+													<br/>
+													<input
+														checked={transcript.published === true}
+														name="published"
+														type="radio"
+														onChange={this.handlePublishedChange.bind(this, transcript, true)}
+													/>Publish
+													<br/>
+													<input
+														checked={transcript.published === false}
+														name="published"
+														type="radio"
+														onChange={this.handlePublishedChange.bind(this, transcript, false)}
+													/>Unpublish					
+													<br/>
+													<input
+														type="submit"
+														value="Delete"
+														onClick={this.handleDeleteTranscript.bind(this, transcript)} />
+													<input
+														type="submit"
+														value="Save changes"
+														onClick={this.handleSaveTranscript.bind(this, transcript)} />
+													<input
+														type="submit"
+														value="Cancel"
+														onClick={this.toggleEdit.bind(this, transcript)} />	
+												</form>
+											</li>
+										);
+									} else {
+										let unpublished = transcript.published ? '' : 'unpublished';
+										return (
+											<li key={transcript.id}>
+												<a className={"link " +  unpublished} href={'/transcript/' + transcript.title.split(' ').join('-')} >
+													{transcript.title}
+												</a>
+												<span> </span>
+												<span className="ion-edit edit" styles={{color: 'white'}} onClick={this.toggleEdit.bind(this, transcript)}></span>
+											</li>
+										);
+									}	
+								}
 							})
 						}
 					</ul>
