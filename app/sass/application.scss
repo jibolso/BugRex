@@ -388,12 +388,17 @@ textarea, input { outline: none; }
     color: $dinoBlue;
   }
 }
+
+
   table {
     width: 100%;
+    table-layout:fixed;
   }
 
   tr {
     height: 45px;
+
+
     
     .operator {
       color: blue;
@@ -402,7 +407,7 @@ textarea, input { outline: none; }
 
 
   .nickname {
-    max-width: 170px;
+    width: 100px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -430,6 +435,7 @@ textarea, input { outline: none; }
 
   .transcript-header {
     margin-bottom: 30px;
+    padding: 0 20px;
   }
 
   .transcript-title {
