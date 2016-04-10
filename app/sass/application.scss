@@ -180,6 +180,11 @@ textarea, input { outline: none; }
 .featured-user {
     width: 20%;
     min-width: 190px;
+    -webkit-box-flex: 1;   /* OLD - iOS 6-, Safari 3.1-6 */
+    width: 20%;            /* For old syntax, otherwise collapses. */
+    -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
+    -ms-flex: 1;           /* IE 10 */
+    flex: 1; 
     padding: 20px 30px;
     margin: 0 0 40px 0;
     cursor: pointer;
