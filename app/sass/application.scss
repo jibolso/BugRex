@@ -51,7 +51,6 @@ textarea, input { outline: none; }
 .right {
   height: 100%;
   background: $chat-bg !important;
-  position: fixed;
 }
 
 .left {
@@ -83,6 +82,7 @@ textarea, input { outline: none; }
   margin-top: 0px;
   text-align: center;
 }
+
 
 
 .account-img {
@@ -135,9 +135,6 @@ textarea, input { outline: none; }
     margin-top: 15px;
     text-align: center;
     font-size: 16;
-  }
-  .unpublished {
-    opacity: 0.5;
   }
 
   .title-field {
@@ -425,6 +422,7 @@ textarea, input { outline: none; }
   }
 
   .transcript-title {
+    margin-top: 15px;
     text-align: center;
     color: $body-white; 
   }

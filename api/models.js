@@ -4,6 +4,10 @@ const config = require('../config');
 
 mongoose.connect(process.env.MONGOLAB || config.mongolab);
 
+function validateTitle(str) {
+    return /^[a-zA-Z0-9\s]*$/.test(str);
+}
+
 const userSchema = new Schema({
     email: String,
     name: String,
@@ -23,7 +27,7 @@ const transcriptSchema = new Schema({
     tags: Array,
     items: Array,
     visitor: Object,
-    title: String,
+    title: { type : String , validate: [validateTitle, 'validation error'], unique : true, required : true },
     mainOperator: String,
     published: Boolean,
     operators: Object,

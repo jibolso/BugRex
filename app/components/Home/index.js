@@ -32,6 +32,7 @@ export default class Home extends React.Component {
 			      	<div className="hero-content">
 				          <h1 className="headline">Get Free Coding Help Right Now</h1>
 				          <p className="tagline">The BugRex chat is operated by a commmunity of <Link className="link" to="/featured">developers</Link> who truly enjoy helping others. Use it to understand new concepts, ask questions or fix annoying bugs.</p>
+				          <p className="tagline">Check out this <Link className="link" to="/transcript/Link-to-Slick-Carusel-CSS-stylesheet-in-React-app">chat transcript</Link> to get a feeling of how it works.</p>
 				          <p className="second-tagline" className="tagline"></p>
 			        </div>
 			    </div>
