@@ -392,13 +392,16 @@ textarea, input { outline: none; }
 
   table {
     width: 100%;
-    table-layout:fixed;
+    table-layout: fixed;
   }
 
   tr {
     height: 45px;
 
+    td {
+      word-wrap: break-word;
 
+    }
     
     .operator {
       color: blue;
