@@ -34,7 +34,7 @@ export default class Account extends React.Component {
 						transcripts: transcripts
 					});
 				}
-			})
+			});
 	}
 
 

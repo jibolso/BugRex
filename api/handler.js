@@ -15,7 +15,6 @@ const getTranscript = (request, reply) => {
     const id = request.params.id;
     if (request.method === 'get') {
         models.getTranscriptById(id, (response) => {
-            console.log('getTranscript: ', response);
             if (response === false) {
                 reply(false);
             }
